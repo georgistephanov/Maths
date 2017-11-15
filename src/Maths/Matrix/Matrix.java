@@ -1,19 +1,20 @@
 package Maths.Matrix;
 
+import java.util.ArrayList;
 import java.util.Random;
 
 public class Matrix {
 	private static int MATRIX_MAX_SIZE = 10;
 	private static int MATRIX_DEFAULT_SIZE = 3;
-	private static int MAX_ELEMENT_VALUE = 20;
+	private static int MAX_ELEMENT_VALUE = 4;
 	private static int MIN_ELEMENT_VALUE = -10;
 	private static boolean NEGATIVE_ELEMENTS_ALLOWED = false;
 
 	private int rows;
 	private int cols;
-	int [][] matrix;
+	private int [][] matrix;
 
-	public Matrix(int rows, int cols, boolean random) {
+	public Matrix(int rows, int cols, boolean populateRandomly) {
 		if (rows > 0 && rows <= MATRIX_MAX_SIZE && cols > 0 && cols <= MATRIX_MAX_SIZE) {
 			this.rows = rows;
 			this.cols = cols;
@@ -24,7 +25,7 @@ public class Matrix {
 			this.cols = MATRIX_DEFAULT_SIZE;
 		}
 
-		if (random) {
+		if (populateRandomly) {
 			populateMatrix();
 		}
 	}
@@ -43,7 +44,7 @@ public class Matrix {
 	 * @param elements -> array of integers with the values in a following
 	 *                    order going row by row
 	 */
-	public void populateMatrix(int elements[]) {
+	void populateMatrix(int elements[]) {
 		int elementIndex = 0;
 
 		if (elements.length >= (rows * cols) - 1) {
@@ -91,10 +92,14 @@ public class Matrix {
 
 
 	/* ======== STATIC METHODS ======== */
-	public static boolean areSameSize(Matrix a, Matrix b) {
+	static boolean areSameSize(Matrix a, Matrix b) {
 		return ( a.getRows() == b.getRows()
 				&& a.getCols() == b.getCols());
 	}
+	static boolean canBeMultiplied(Matrix a, Matrix b) {
+		return a.getCols() == b.getRows();
+	}
+
 
 	// TODO: Implement this together with the hash function
 	@Override
@@ -118,7 +123,46 @@ public class Matrix {
 
 
 	/* ======== GETTERS ======== */
-	public int getRows() { return rows; }
-	public int getCols() { return cols; }
+	int getRows() { return rows; }
+	int getCols() { return cols; }
+	int at(int row, int col) { return matrix[row][col]; }
+
+	int getRowProduct(int row) {
+		int product = 1;
+
+		for (int col = 0; col < cols; col++) {
+			product *= matrix[row][col];
+		}
+
+		return product;
+	}
+	int getColumnProduct(int column) {
+		int product = 1;
+
+		for (int row = 0; row < rows; row++) {
+			product *= matrix[row][column];
+		}
+
+		return product;
+	}
+	ArrayList<Integer> getRowElements(int row) {
+		ArrayList<Integer> rowElements = new ArrayList<>();
+
+		for (int column = 0; column < cols; column++) {
+			rowElements.add( matrix[row][column] );
+		}
+
+		return rowElements;
+	}
+	ArrayList<Integer> getColumnElements(int column) {
+		ArrayList<Integer> colElements = new ArrayList<>();
+
+		for (int row = 0; row < rows; row++) {
+			colElements.add( matrix[row][column] );
+		}
+
+		return colElements;
+	}
+
 
 }

@@ -9,13 +9,11 @@ public class Test {
 	public static void execute() {
 		double x = 10;
 		double y = 2;
-
 		//testBasicOperations(BasicOperation.class, x, y);
 
 		Matrix a = new Matrix();
 		Matrix b = new Matrix();
-
-		testMatrixOperations(MatrixOperations.class, a, b);
+		//testMatrixOperations(MatrixOperations.class, a, b);
 	}
 
 	/**
@@ -34,7 +32,7 @@ public class Test {
 			Matrix c = operation.apply(a, b);
 
 			if (c != null) {
-				System.out.printf("%s%n\t\t%s%n%n%s-------------------%n%s", a, operation, b, operation.apply(a, b));
+				System.out.printf("%n%s%n\t\t%s%n%n%s-------------------%n%s%n%n%n", a, operation, b, operation.apply(a, b));
 			}
 		}
 	}
