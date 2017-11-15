@@ -1,22 +1,20 @@
 package Maths.Matrix;
 
-import Maths.Matrix.MatrixOperation;
-
 import java.util.ArrayList;
 
 public enum MatrixOperations implements MatrixOperation {
 	PLUS ("+", (a, b) -> {
 		if (Matrix.areSameSize(a, b)) {
-			int elements[] = new int[a.getCols() * a.getRows()];
+			int elements[] = new int[a.getColumns() * a.getRows()];
 			int elementIndex = 0;
 
 			for (int i = 0; i < a.getRows(); i++) {
-				for (int j = 0; j < a.getCols(); j++) {
+				for (int j = 0; j < a.getColumns(); j++) {
 					elements[elementIndex++] = a.at(i, j) + b.at(i, j);
 				}
 			}
 
-			Matrix matrixSum = new Matrix(a.getRows(), a.getCols(), false);
+			Matrix matrixSum = new Matrix(a.getRows(), a.getColumns(), false);
 			matrixSum.populateMatrix(elements);
 
 			return matrixSum;
@@ -27,16 +25,16 @@ public enum MatrixOperations implements MatrixOperation {
 	}),
 	MINUS ("-", (a, b) -> {
 		if (Matrix.areSameSize(a, b)) {
-			int elements[] = new int[a.getCols() * a.getRows()];
+			int elements[] = new int[a.getColumns() * a.getRows()];
 			int elementIndex = 0;
 
 			for (int i = 0; i < a.getRows(); i++) {
-				for (int j = 0; j < a.getCols(); j++) {
+				for (int j = 0; j < a.getColumns(); j++) {
 					elements[elementIndex++] = a.at(i, j) - b.at(i, j);
 				}
 			}
 
-			Matrix newMatrix = new Matrix(a.getRows(), a.getCols(), false);
+			Matrix newMatrix = new Matrix(a.getRows(), a.getColumns(), false);
 			newMatrix.populateMatrix(elements);
 
 			return newMatrix;
@@ -47,7 +45,7 @@ public enum MatrixOperations implements MatrixOperation {
 	}),
 	MULTIPLY ("*", (a, b) -> {
 		if (Matrix.canBeMultiplied(a, b)) {
-			int elements[] = new int[a.getCols() * a.getRows()];
+			int elements[] = new int[a.getColumns() * a.getRows()];
 			int elementIndex = 0;
 
 			int row = 0;
@@ -56,12 +54,12 @@ public enum MatrixOperations implements MatrixOperation {
 			for (int i = 0; i < a.getRows(); i++) {
 				ArrayList<Integer> rowElements = a.getRowElements(i);
 
-				for (int j = 0; j < a.getCols(); j++) {
+				for (int j = 0; j < a.getColumns(); j++) {
 					ArrayList<Integer> colElements = b.getColumnElements(j);
 
 					int elementAtThisIndex = 0;
 
-					for (int n = 0; n < a.getCols(); n++) {
+					for (int n = 0; n < a.getColumns(); n++) {
 						elementAtThisIndex += rowElements.get(n) * colElements.get(n);
 					}
 
@@ -69,7 +67,7 @@ public enum MatrixOperations implements MatrixOperation {
 				}
 			}
 
-			Matrix productMatrix = new Matrix(a.getRows(), b.getCols(), false);
+			Matrix productMatrix = new Matrix(a.getRows(), b.getColumns(), false);
 			productMatrix.populateMatrix(elements);
 
 			return productMatrix;

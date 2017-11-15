@@ -11,8 +11,16 @@ public class Test {
 		double y = 2;
 		//testBasicOperations(BasicOperation.class, x, y);
 
-		Matrix a = new Matrix();
+		Matrix a = new Matrix(3, 3, false);
 		Matrix b = new Matrix();
+
+		int elem[] = {1, 2, 3, 3, 1, 5, 4, 0, 1};
+		a.populateMatrix(elem);
+
+		a.calculateReducedRowEchelonForm();
+		System.out.println(a);
+		a.printReducedRowEchelonForm();
+
 		//testMatrixOperations(MatrixOperations.class, a, b);
 	}
 
