@@ -1,5 +1,5 @@
 package Maths;
 
-public interface Operation {
+public interface NumericOperation {
 	double apply(double x, double y);
 }

@@ -13,15 +13,14 @@
 
 package core;
 
-import Maths.*;
 import Test.Test;
 
 public class Main {
 
 	public static void main(String[] args) {
-		System.out.println("\t==============================="
-						+ "\n\tWelcome to my Maths playground!"
-						+ "\n\t===============================");
+		System.out.println("==============================="
+						+ "\nWelcome to my Maths playground!"
+						+ "\n===============================\n");
 
 		Test.execute();
 

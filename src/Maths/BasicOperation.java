@@ -1,6 +1,6 @@
 package Maths;
 
-public enum BasicOperation implements Operation {
+public enum BasicOperation implements NumericOperation {
 	PLUS 	("+", (x, y) -> x + y),
 	MINUS 	("-", (x, y) -> x - y),
 	TIMES 	("*", (x, y) -> x * y),
@@ -9,9 +9,9 @@ public enum BasicOperation implements Operation {
 	REM 	("%", (x, y) -> x % y);
 
 	private final String symbol;
-	private final Operation operation;
+	private final NumericOperation operation;
 
-	BasicOperation(String symbol, Operation operation) {
+	BasicOperation(String symbol, NumericOperation operation) {
 		this.symbol = symbol;
 		this.operation = operation;
 	}
