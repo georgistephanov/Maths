@@ -62,7 +62,7 @@ public class Matrix {
 
 			for (int i = 0; i < rows; i++) {
 				for (int j = 0; j < columns; j++) {
-					if (elementIndex <= elements.length) {
+					if (elementIndex < elements.length) {
 						matrix[i][j] = elements[elementIndex++];
 					} else {
 						matrix[i][j] = 0;
@@ -209,11 +209,61 @@ public class Matrix {
 	/* ======== CALCULATION METHODS ======== */
 	public void calculateMatrices() {
 		calculateUpperTriangular();
-		calculateReducedRowEchelonForm();
+		//calculateReducedRowEchelonForm();
 	}
 
-	private void calculateReducedRowEchelonForm() { }
+	private void calculateReducedRowEchelonForm() {
+		if (matrix.length > 0 && upperTriangular.length > 0) {
+			if (rrefMatrix == null) {
+				rrefMatrix = new int[rows][columns];
+			}
 
+			// Copy the upper triangular matrix
+			{
+				for (int row = 0; row < rows; row++) {
+					rrefMatrix[row] = upperTriangular[row].clone();
+				}
+			}
+
+			// Iterate the matrix from the last row upwards
+			for (int column = columns - 1; column > 0; column--) {
+				ArrayList<Integer> pivotRow = getRowElements(rrefMatrix, column);
+
+				// Make all zeros above the main diagonal
+				for (int row = column - 1; row >= 0; row--) {
+					if (rrefMatrix[row][column] == 0) {
+						continue;
+					}
+
+					int multiplierCurrentRow = rrefMatrix[column][column];
+					int multiplierPivotRow = rrefMatrix[row][column];
+
+					ArrayList<Integer> currentRow = getRowElements(rrefMatrix, row);
+					ArrayList<Integer> newRow = new ArrayList<>();
+
+					for (int i = 0; i < columns; i++) {
+						// If the element below is zero don't do any calculations
+						if (rrefMatrix[column][i] == 0) {
+							newRow.add(currentRow.get(i));
+							continue;
+						}
+
+						int newRowElement = currentRow.get(i) * multiplierCurrentRow
+								- pivotRow.get(i) * multiplierPivotRow;
+						newRow.add(newRowElement);
+					}
+
+					fillRow(rrefMatrix, row, newRow);
+
+					System.out.println("Row: " + row + "   Col: " + column);
+					printMatrix(rrefMatrix);
+					System.out.println("\n\n\n");
+				}
+			}
+		}
+	}
+
+	// TODO: Think of an elegant way to calculate rectangular matrices too!!!
 	private void calculateUpperTriangular() {
 		if (matrix.length > 0) {
 			if (upperTriangular == null) {
@@ -230,22 +280,37 @@ public class Matrix {
 			for (int column = 0; column < columns; column++) {
 				// Reorders the pivot rows if necessary
 				reorderPivotRows(upperTriangular, column);
-
-				ArrayList<Integer> pivotRow = getRowElements(upperTriangular, column);
+				int pivotRowIndex = column;
 
 				// Make all zeros under the current element
 				for (int row = column + 1; row < rows; row++) {
 
-					// If the pivot is 0 -> this row is done
-					if (upperTriangular[row][column] == 0) {
+					// If the current element is 0 -> find the pivot variable
+					while (upperTriangular[row][column] == 0) {
+						column++;
+					}
+
+					ArrayList<Integer> pivotRow = getRowElements(upperTriangular, pivotRowIndex);
+					ArrayList<Integer> currentRow = getRowElements(upperTriangular, row);
+					ArrayList<Integer> newRow = new ArrayList<>();
+
+					int multiplierPivotRow = upperTriangular[row][column];
+					int multiplierCurrentRow = getFirstNonZeroElement(pivotRow);
+
+					if (multiplierCurrentRow == 0) {
 						continue;
 					}
 
-					int multiplierPivotRow = upperTriangular[row][column];
-					int multiplierCurrentRow = upperTriangular[column][column];
-
-					ArrayList<Integer> currentRow = getRowElements(upperTriangular, row);
-					ArrayList<Integer> newRow = new ArrayList<>();
+					// Quick optimisation in case both multipliers are the same number with different signs
+					if (multiplierPivotRow == -multiplierCurrentRow) {
+						if (multiplierCurrentRow < 0) {
+							multiplierCurrentRow = -1;
+							multiplierPivotRow = 1;
+						} else {
+							multiplierCurrentRow = 1;
+							multiplierPivotRow = -1;
+						}
+					}
 
 					for (int i = 0; i < columns; i++) {
 						int newRowElement = currentRow.get(i) * multiplierCurrentRow
@@ -256,6 +321,7 @@ public class Matrix {
 					fillRow(upperTriangular, row, newRow);
 				}
 			}
+			reorderPivotRows(upperTriangular);
 		}
 	}
 
@@ -266,10 +332,10 @@ public class Matrix {
 	 * @param col: the column number
 	 */
 	private void reorderPivotRows(int [][] m, int col) {
-		for (int row = col; row < rows; row++) {
+		for (int row = col; row < rows - 1; row++) {
 
-			// Checks if the leading element is zero and is not the last row
-			if ( m[row][col] == 0 && row + 1 < rows ) {
+			// Checks if the leading element is zero
+			if ( m[row][col] == 0 ) {
 				int nextValidRow = row + 1;
 
 				// Finds the next valid row for a row exchange if such exists
@@ -287,10 +353,30 @@ public class Matrix {
 			}
 		}
 	}
+	private void reorderPivotRows(int [][] m) {
+		int lastNonZeroRow = rows - 1;
+
+		for (int row = 0; row < rows - 1; row++) {
+			ArrayList<Integer> rowElements = getRowElements(m, row);
+			boolean isZeroRow = true;
+
+			for (int rowElement : rowElements) {
+				if (rowElement != 0) {
+					isZeroRow = false;
+					break;
+				}
+			}
+
+			// TODO: Fix this
+			if (isZeroRow) {
+				swapTwoRows(m, row, lastNonZeroRow--);
+			}
+		}
+	}
 	private void swapTwoRows(int [][] m, int row1, int row2) {
 		// Checks all required conditions for the exchange to happen
 		if ( m.length > 0 && m[0].length > row1 && m[0].length > row2 && row1 != row2 ) {
-			for (int col = 0; col < m.length; col++) {
+			for (int col = 0; col < m[0].length; col++) {
 				int temp = m[row1][col];
 				m[row1][col] = m[row2][col];
 				m[row2][col] = temp;
@@ -306,7 +392,7 @@ public class Matrix {
 		printMatrix(upperTriangular);
 	}
 	public void printReducedRowEchelonForm() {
-		printMatrix(rrefMatrix);
+		//printMatrix(rrefMatrix);
 	}
 	private void printMatrix(int [][] m) {
 		if (m.length > 0) {
@@ -319,5 +405,15 @@ public class Matrix {
 			}
 
 		}
+	}
+
+	/* ======== HELPER METHODS ======== */
+	private int getFirstNonZeroElement(ArrayList<Integer> arr) {
+		for (int a : arr) {
+			if (a != 0)
+				return a;
+		}
+
+		return 0;
 	}
 }

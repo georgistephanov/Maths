@@ -11,15 +11,28 @@ public class Test {
 		double y = 2;
 		//testBasicOperations(BasicOperation.class, x, y);
 
-		Matrix a = new Matrix(3, 3, false);
+		Matrix a = new Matrix(3, 5, false);
 		Matrix b = new Matrix();
 
-		int elem[] = {1, 2, 3, 1, 2, 5, 0, 3, 1};
+		// TODO: Doesn't do elimination correctly on wide matrices
+		// TODO: Split into 3 different functions -> wide, tall, square matrices
+		int elem[] = {3, 3, 2, 2, 3,
+					  1, 1, 0, 1, 6,
+					  0, 0, 6, 2, 1 };
+
+		int elem2[] = {3, 3, 2,
+					   2, 3, 1,
+					   1, 0, 1,
+					   6, 2, 1 };
+
+		int elem3[] = {2,1,  1,1,  3,6};
+
 		a.populateMatrix(elem);
 
 		a.calculateMatrices();
 		System.out.println(a);
 		a.printUpperTriangularMatrix();
+		a.printReducedRowEchelonForm();
 
 		//testMatrixOperations(MatrixOperations.class, a, b);
 	}
