@@ -28,8 +28,6 @@ public class Matrix {
 			this.columns = MATRIX_DEFAULT_SIZE;
 		}
 
-		rrefMatrix = new int[this.rows][this.columns];
-
 		if (populateRandomly) {
 			populateMatrixRandomly();
 		}
@@ -205,59 +203,117 @@ public class Matrix {
 		return rowElements;
 	}
 
+
+
+
 	/* ======== CALCULATION METHODS ======== */
-	// TODO: Reorder the pivots if necessary
-	public void calculateReducedRowEchelonForm() {
+	public void calculateMatrices() {
+		calculateUpperTriangular();
+		calculateReducedRowEchelonForm();
+	}
+
+	private void calculateReducedRowEchelonForm() { }
+
+	private void calculateUpperTriangular() {
 		if (matrix.length > 0) {
+			if (upperTriangular == null) {
+				upperTriangular = new int[rows][columns];
+			}
 
 			// Copy the original matrix
 			{
 				for (int row = 0; row < rows; row++) {
-					rrefMatrix[row] = matrix[row].clone();
+					upperTriangular[row] = matrix[row].clone();
 				}
 			}
 
-			int [] elements = new int[rows * columns];
-			int elementIndex = 0;
-
 			for (int column = 0; column < columns; column++) {
-				ArrayList<Integer> pivotRow = getRowElements(rrefMatrix, column);
+				// Reorders the pivot rows if necessary
+				reorderPivotRows(upperTriangular, column);
+
+				ArrayList<Integer> pivotRow = getRowElements(upperTriangular, column);
 
 				// Make all zeros under the current element
 				for (int row = column + 1; row < rows; row++) {
-					if (rrefMatrix[row][column] == 0) {
-						System.out.println("Hi");
+
+					// If the pivot is 0 -> this row is done
+					if (upperTriangular[row][column] == 0) {
 						continue;
 					}
 
-					int multiplierPivotRow = rrefMatrix[row][column];
-					int multiplierCurrentRow = rrefMatrix[column][column];
+					int multiplierPivotRow = upperTriangular[row][column];
+					int multiplierCurrentRow = upperTriangular[column][column];
 
-					ArrayList<Integer> currentRow = getRowElements(rrefMatrix, row);
+					ArrayList<Integer> currentRow = getRowElements(upperTriangular, row);
 					ArrayList<Integer> newRow = new ArrayList<>();
 
 					for (int i = 0; i < columns; i++) {
 						int newRowElement = currentRow.get(i) * multiplierCurrentRow
-										  	- pivotRow.get(i) * multiplierPivotRow;
+								- pivotRow.get(i) * multiplierPivotRow;
 						newRow.add(newRowElement);
 					}
 
-					fillRow(rrefMatrix, row, newRow);
+					fillRow(upperTriangular, row, newRow);
 				}
 			}
 		}
 	}
 
-	private void calculateUpperTriangular() {
-		//upperTriangular
+	/**
+	 * Reorders the pivot rows of a given column so that no row,
+	 * if possible, starts with zero
+	 * @param m: the matrix to be manipulated
+	 * @param col: the column number
+	 */
+	private void reorderPivotRows(int [][] m, int col) {
+		for (int row = col; row < rows; row++) {
+
+			// Checks if the leading element is zero and is not the last row
+			if ( m[row][col] == 0 && row + 1 < rows ) {
+				int nextValidRow = row + 1;
+
+				// Finds the next valid row for a row exchange if such exists
+				while (nextValidRow < rows) {
+					if ( m[nextValidRow][col] != 0 ) {
+						break;
+					}
+					nextValidRow++;
+				}
+
+				// Checks if there is next valid row and exchanges it with the current one
+				if (nextValidRow < rows) {
+					swapTwoRows(m, row, nextValidRow);
+				}
+			}
+		}
+	}
+	private void swapTwoRows(int [][] m, int row1, int row2) {
+		// Checks all required conditions for the exchange to happen
+		if ( m.length > 0 && m[0].length > row1 && m[0].length > row2 && row1 != row2 ) {
+			for (int col = 0; col < m.length; col++) {
+				int temp = m[row1][col];
+				m[row1][col] = m[row2][col];
+				m[row2][col] = temp;
+			}
+		}
 	}
 
+
+
+
+	/* ======== PRINTING METHODS ======== */
+	public void printUpperTriangularMatrix() {
+		printMatrix(upperTriangular);
+	}
 	public void printReducedRowEchelonForm() {
-		if (rrefMatrix.length > 0) {
+		printMatrix(rrefMatrix);
+	}
+	private void printMatrix(int [][] m) {
+		if (m.length > 0) {
 
 			for (int row = 0; row < rows; row++) {
 				for (int col = 0; col < columns; col++) {
-					System.out.print(rrefMatrix[row][col] + "\t\t");
+					System.out.print(m[row][col] + "\t\t");
 				}
 				System.out.println();
 			}

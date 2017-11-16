@@ -14,12 +14,12 @@ public class Test {
 		Matrix a = new Matrix(3, 3, false);
 		Matrix b = new Matrix();
 
-		int elem[] = {1, 2, 3, 3, 1, 5, 4, 0, 1};
+		int elem[] = {1, 2, 3, 1, 2, 5, 0, 3, 1};
 		a.populateMatrix(elem);
 
-		a.calculateReducedRowEchelonForm();
+		a.calculateMatrices();
 		System.out.println(a);
-		a.printReducedRowEchelonForm();
+		a.printUpperTriangularMatrix();
 
 		//testMatrixOperations(MatrixOperations.class, a, b);
 	}
