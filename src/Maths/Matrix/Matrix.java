@@ -279,63 +279,15 @@ public class Matrix {
 				}
 			}
 
-			// TODO: Call the different methods based on the size of the matrix
-			if ( matrix.length >= matrix[0].length) {
-				// Square or tall matrix
-				calculateTallUpperTriangular(upperTriangular);
-
-			} else {
-				// Wide matrix
-				calculateTallUpperTriangular(upperTriangular);
-			}
-
+			calculateUpperTriangular(upperTriangular);
 		}
 	}
 
-	private void calculateSquareUpperTriangular(int [][] upperTriangular) {
+	private void calculateUpperTriangular(int [][] upperTriangular) {
+		// Reorders the pivot rows if necessary
+		reorderPivotRows(upperTriangular);
+
 		for (int column = 0; column < columns; column++) {
-			// Reorders the pivot rows if necessary
-			reorderPivotRows(upperTriangular, column);
-
-			// Make all zeros under the current column
-			for (int row = column + 1; row < rows; row++) {
-				// If the current element is 0 -> find the pivot variable
-				if ( upperTriangular[row][column] == 0 ) {
-					continue;
-				}
-
-				ArrayList<Integer> pivotRow = getRowElements(upperTriangular, column);
-				ArrayList<Integer> currentRow = getRowElements(upperTriangular, row);
-				ArrayList<Integer> newRow = new ArrayList<>();
-
-				int multiplierPivotRow = upperTriangular[row][column];
-				int multiplierCurrentRow = getFirstNonZeroElement(pivotRow);
-
-				// Find the smallest possible multipliers
-				int multipliersGCD = Algorithm.GCD(multiplierPivotRow, multiplierCurrentRow);
-				if ( multipliersGCD > 1 ) {
-					multiplierPivotRow /= multipliersGCD;
-					multiplierCurrentRow /= multipliersGCD;
-				}
-
-				for (int i = 0; i < columns; i++) {
-					int newRowElement = currentRow.get(i) * multiplierCurrentRow
-							- pivotRow.get(i) * multiplierPivotRow;
-
-					newRow.add(newRowElement);
-				}
-
-				fillRow(upperTriangular, row, newRow);
-			}
-		}
-	}
-
-	private void calculateTallUpperTriangular(int [][] upperTriangular) {
-		for (int column = 0; column < columns; column++) {
-			// Reorders the pivot rows if necessary
-			reorderPivotRows(upperTriangular, column);
-			reorderPivotRows(upperTriangular);
-
 			// Make all zeros under the current column
 			for (int row = column + 1; row < rows; row++) {
 				int pivotColumn = column;
@@ -383,35 +335,14 @@ public class Matrix {
 	}
 
 	/**
-	 * Reorders the pivot rows of a given column so that no row,
-	 * if possible, starts with zero
+	 * Reorders the rows of a given matrix based on their length
+	 * (counted from the first non-zero element in the row)
+	 *
 	 * @param m: the matrix to be manipulated
-	 * @param col: the column number
 	 */
-	private void reorderPivotRows(int [][] m, int col) {
-		for (int row = col; row < rows - 1; row++) {
-
-			// Checks if the leading element is zero
-			if ( m[row][col] == 0 ) {
-				int nextValidRow = row + 1;
-
-				// Finds the next valid row for a row exchange if such exists
-				while (nextValidRow < rows) {
-					if ( m[nextValidRow][col] != 0 ) {
-						break;
-					}
-					nextValidRow++;
-				}
-
-				// Checks if there is next valid row and exchanges it with the current one
-				if (nextValidRow < rows) {
-					swapTwoRows(m, row, nextValidRow);
-				}
-			}
-		}
-	}
 	private void reorderPivotRows(int [][] m) {
 		int firstNonZeroElementsInRow[] = new int[m.length];
+
 		for (int row = 0; row < rows; row++) {
 			for (int column = 0; column < columns; column++) {
 				if ( m[row][column] != 0 ) {
@@ -419,20 +350,27 @@ public class Matrix {
 					break;
 				}
 			}
+
+			firstNonZeroElementsInRow[row] = rows;
 		}
 
 		// Compare each row with the others and swap if necessary
-		for (int row = 0; row < rows - 1; row++) {
-
-			int longestRow = Integer.MAX_VALUE;
+		for (int row = rows - 1; row > 0; row--) {
+			int shortestRow = Integer.MAX_VALUE;
 			// Place the first row first and so on
-			for (int i = row + 1; i < rows; i++) {
-				if (firstNonZeroElementsInRow[i] < longestRow)
-					longestRow = i;
+
+			for (int i = 0; i < rows; i++) {
+				if (firstNonZeroElementsInRow[i] < shortestRow)
+					shortestRow = i;
 			}
 
-			if ( firstNonZeroElementsInRow[row] != firstNonZeroElementsInRow[longestRow] ) {
-				swapTwoRows(m, row, longestRow);
+			if ( firstNonZeroElementsInRow[row] < firstNonZeroElementsInRow[shortestRow] || firstNonZeroElementsInRow[shortestRow] == rows ) {
+				swapTwoRows(m, row, shortestRow);
+
+				// Swap the values in the array we're looking
+				int temp = firstNonZeroElementsInRow[row];
+				firstNonZeroElementsInRow[row] = firstNonZeroElementsInRow[shortestRow];
+				firstNonZeroElementsInRow[shortestRow] = temp;
 			}
 		}
 	}
