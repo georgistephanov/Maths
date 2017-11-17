@@ -3,7 +3,6 @@ package Test;
 import Maths.*;
 import Maths.Matrix.Matrix;
 import Maths.Matrix.MatrixOperation;
-import Maths.Matrix.MatrixOperations;
 
 public class Test {
 	public static void execute() {
@@ -14,20 +13,27 @@ public class Test {
 		Matrix a = new Matrix(3, 5, false);
 		Matrix b = new Matrix();
 
-		// TODO: Doesn't do elimination correctly on wide matrices
-		// TODO: Split into 3 different functions -> wide, tall, square matrices
-		int elem[] = {3, 3, 2, 2, 3,
-					  1, 1, 0, 1, 6,
-					  0, 0, 6, 2, 1 };
+		int elem1[] = {
+				3, 3, 2, 2, 3,
+				0, 0, 0, 1, 6,
+				0, 0, 6, 2, 1 };
 
-		int elem2[] = {3, 3, 2,
-					   2, 3, 1,
-					   1, 0, 1,
-					   6, 2, 1 };
+		int elem2[] = {
+				3, 3, 2,
+				2, 2, 5,
+				2, 3, 1,
+				0, 1, 6,
+				7, 0, 5 };
 
 		int elem3[] = {2,1,  1,1,  3,6};
 
-		a.populateMatrix(elem);
+		int elem4[] = {
+				1, 2, 3,
+				0, 1, 0,
+				7, 8, 0
+		};
+
+		a.populateMatrix(elem1);
 
 		a.calculateMatrices();
 		System.out.println(a);

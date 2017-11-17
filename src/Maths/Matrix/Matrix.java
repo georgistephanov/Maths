@@ -1,5 +1,7 @@
 package Maths.Matrix;
 
+import Algorithms.Algorithm;
+
 import java.util.ArrayList;
 import java.util.Random;
 
@@ -277,51 +279,106 @@ public class Matrix {
 				}
 			}
 
-			for (int column = 0; column < columns; column++) {
-				// Reorders the pivot rows if necessary
-				reorderPivotRows(upperTriangular, column);
-				int pivotRowIndex = column;
+			// TODO: Call the different methods based on the size of the matrix
+			if ( matrix.length >= matrix[0].length) {
+				// Square or tall matrix
+				calculateTallUpperTriangular(upperTriangular);
 
-				// Make all zeros under the current element
-				for (int row = column + 1; row < rows; row++) {
+			} else {
+				// Wide matrix
+				calculateTallUpperTriangular(upperTriangular);
+			}
 
-					// If the current element is 0 -> find the pivot variable
-					while (upperTriangular[row][column] == 0) {
-						column++;
-					}
+		}
+	}
 
-					ArrayList<Integer> pivotRow = getRowElements(upperTriangular, pivotRowIndex);
-					ArrayList<Integer> currentRow = getRowElements(upperTriangular, row);
-					ArrayList<Integer> newRow = new ArrayList<>();
+	private void calculateSquareUpperTriangular(int [][] upperTriangular) {
+		for (int column = 0; column < columns; column++) {
+			// Reorders the pivot rows if necessary
+			reorderPivotRows(upperTriangular, column);
 
-					int multiplierPivotRow = upperTriangular[row][column];
-					int multiplierCurrentRow = getFirstNonZeroElement(pivotRow);
+			// Make all zeros under the current column
+			for (int row = column + 1; row < rows; row++) {
+				// If the current element is 0 -> find the pivot variable
+				if ( upperTriangular[row][column] == 0 ) {
+					continue;
+				}
 
-					if (multiplierCurrentRow == 0) {
-						continue;
-					}
+				ArrayList<Integer> pivotRow = getRowElements(upperTriangular, column);
+				ArrayList<Integer> currentRow = getRowElements(upperTriangular, row);
+				ArrayList<Integer> newRow = new ArrayList<>();
 
-					// Quick optimisation in case both multipliers are the same number with different signs
-					if (multiplierPivotRow == -multiplierCurrentRow) {
-						if (multiplierCurrentRow < 0) {
-							multiplierCurrentRow = -1;
-							multiplierPivotRow = 1;
-						} else {
-							multiplierCurrentRow = 1;
-							multiplierPivotRow = -1;
-						}
-					}
+				int multiplierPivotRow = upperTriangular[row][column];
+				int multiplierCurrentRow = getFirstNonZeroElement(pivotRow);
 
-					for (int i = 0; i < columns; i++) {
+				// Find the smallest possible multipliers
+				int multipliersGCD = Algorithm.GCD(multiplierPivotRow, multiplierCurrentRow);
+				if ( multipliersGCD > 1 ) {
+					multiplierPivotRow /= multipliersGCD;
+					multiplierCurrentRow /= multipliersGCD;
+				}
+
+				for (int i = 0; i < columns; i++) {
+					int newRowElement = currentRow.get(i) * multiplierCurrentRow
+							- pivotRow.get(i) * multiplierPivotRow;
+
+					newRow.add(newRowElement);
+				}
+
+				fillRow(upperTriangular, row, newRow);
+			}
+		}
+	}
+
+	private void calculateTallUpperTriangular(int [][] upperTriangular) {
+		for (int column = 0; column < columns; column++) {
+			// Reorders the pivot rows if necessary
+			reorderPivotRows(upperTriangular, column);
+			reorderPivotRows(upperTriangular);
+
+			// Make all zeros under the current column
+			for (int row = column + 1; row < rows; row++) {
+				int pivotColumn = column;
+				// If the current element of the pivot row is 0 -> find the pivot variable
+				while ( pivotColumn < columns && upperTriangular[column][pivotColumn] == 0 ) {
+					pivotColumn++;
+				}
+
+				if (pivotColumn == columns) {
+					// Zero row
+					continue;
+				}
+
+				ArrayList<Integer> pivotRow = getRowElements(upperTriangular, column);
+				ArrayList<Integer> currentRow = getRowElements(upperTriangular, row);
+				ArrayList<Integer> newRow = new ArrayList<>();
+
+				int multiplierPivotRow = upperTriangular[row][pivotColumn];
+				int multiplierCurrentRow = getFirstNonZeroElement(pivotRow);
+
+				// Find the smallest possible multipliers
+				int multipliersGCD = Algorithm.GCD(multiplierPivotRow, multiplierCurrentRow);
+				if ( multipliersGCD > 1 ) {
+					multiplierPivotRow /= multipliersGCD;
+					multiplierCurrentRow /= multipliersGCD;
+				}
+
+				for (int i = 0; i < columns; i++) {
+					int currentRowElement = currentRow.get(i);
+					int pivotRowElement = pivotRow.get(i);
+
+					if (currentRowElement == 0 && pivotRowElement == 0) {
+						newRow.add(0);
+					} else {
 						int newRowElement = currentRow.get(i) * multiplierCurrentRow
 								- pivotRow.get(i) * multiplierPivotRow;
+
 						newRow.add(newRowElement);
 					}
-
-					fillRow(upperTriangular, row, newRow);
 				}
+
+				fillRow(upperTriangular, row, newRow);
 			}
-			reorderPivotRows(upperTriangular);
 		}
 	}
 
@@ -354,28 +411,34 @@ public class Matrix {
 		}
 	}
 	private void reorderPivotRows(int [][] m) {
-		int lastNonZeroRow = rows - 1;
-
-		for (int row = 0; row < rows - 1; row++) {
-			ArrayList<Integer> rowElements = getRowElements(m, row);
-			boolean isZeroRow = true;
-
-			for (int rowElement : rowElements) {
-				if (rowElement != 0) {
-					isZeroRow = false;
+		int firstNonZeroElementsInRow[] = new int[m.length];
+		for (int row = 0; row < rows; row++) {
+			for (int column = 0; column < columns; column++) {
+				if ( m[row][column] != 0 ) {
+					firstNonZeroElementsInRow[row] = column;
 					break;
 				}
 			}
+		}
 
-			// TODO: Fix this
-			if (isZeroRow) {
-				swapTwoRows(m, row, lastNonZeroRow--);
+		// Compare each row with the others and swap if necessary
+		for (int row = 0; row < rows - 1; row++) {
+
+			int longestRow = Integer.MAX_VALUE;
+			// Place the first row first and so on
+			for (int i = row + 1; i < rows; i++) {
+				if (firstNonZeroElementsInRow[i] < longestRow)
+					longestRow = i;
+			}
+
+			if ( firstNonZeroElementsInRow[row] != firstNonZeroElementsInRow[longestRow] ) {
+				swapTwoRows(m, row, longestRow);
 			}
 		}
 	}
 	private void swapTwoRows(int [][] m, int row1, int row2) {
 		// Checks all required conditions for the exchange to happen
-		if ( m.length > 0 && m[0].length > row1 && m[0].length > row2 && row1 != row2 ) {
+		if ( m.length > 0 && m.length > row1 && m.length > row2 && row1 != row2 ) {
 			for (int col = 0; col < m[0].length; col++) {
 				int temp = m[row1][col];
 				m[row1][col] = m[row2][col];
