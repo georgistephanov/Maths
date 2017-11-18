@@ -1,8 +1,8 @@
 package Test;
 
 import Maths.*;
-import Maths.Matrix.Matrix;
-import Maths.Matrix.MatrixOperation;
+import Maths.Matrices.Matrix;
+import Maths.Matrices.MatrixOperation;
 
 public class Test {
 	public static void execute() {

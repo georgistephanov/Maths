@@ -1,4 +1,4 @@
-package Maths.Matrix;
+package Maths.Matrices;
 
 import java.util.ArrayList;
 
