@@ -3,8 +3,8 @@ package Maths.Matrices;
 import java.util.ArrayList;
 
 public enum MatrixOperations implements MatrixOperation {
-	PLUS ("+", (a, b) -> {
-		if (Matrix.areSameSize(a, b)) {
+	ADD ("+", (a, b) -> {
+		if (AbstractMatrix.areSameSize(a, b)) {
 			int elements[] = new int[a.getColumns() * a.getRows()];
 			int elementIndex = 0;
 
@@ -14,7 +14,7 @@ public enum MatrixOperations implements MatrixOperation {
 				}
 			}
 
-			Matrix matrixSum = new Matrix(a.getRows(), a.getColumns(), false);
+			Matrix matrixSum = MatrixFactory.createMatrix(a.getRows(), a.getColumns());
 			matrixSum.populateMatrix(elements);
 
 			return matrixSum;
@@ -23,8 +23,8 @@ public enum MatrixOperations implements MatrixOperation {
 		System.out.println("The two matrices are not of the same sizes.");
 		return null;
 	}),
-	MINUS ("-", (a, b) -> {
-		if (Matrix.areSameSize(a, b)) {
+	SUBTRACT ("-", (a, b) -> {
+		if (AbstractMatrix.areSameSize(a, b)) {
 			int elements[] = new int[a.getColumns() * a.getRows()];
 			int elementIndex = 0;
 
@@ -34,7 +34,7 @@ public enum MatrixOperations implements MatrixOperation {
 				}
 			}
 
-			Matrix newMatrix = new Matrix(a.getRows(), a.getColumns(), false);
+			Matrix newMatrix = MatrixFactory.createMatrix(a.getRows(), a.getColumns());
 			newMatrix.populateMatrix(elements);
 
 			return newMatrix;
@@ -44,7 +44,7 @@ public enum MatrixOperations implements MatrixOperation {
 		return null;
 	}),
 	MULTIPLY ("*", (a, b) -> {
-		if (Matrix.canBeMultiplied(a, b)) {
+		if (AbstractMatrix.canBeMultiplied(a, b)) {
 			int elements[] = new int[a.getColumns() * a.getRows()];
 			int elementIndex = 0;
 
@@ -67,7 +67,7 @@ public enum MatrixOperations implements MatrixOperation {
 				}
 			}
 
-			Matrix productMatrix = new Matrix(a.getRows(), b.getColumns(), false);
+			Matrix productMatrix = MatrixFactory.createMatrix(a.getRows(), b.getColumns());
 			productMatrix.populateMatrix(elements);
 
 			return productMatrix;

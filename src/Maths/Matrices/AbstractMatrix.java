@@ -53,11 +53,58 @@ abstract class AbstractMatrix implements Matrix {
 	}
 
 
+
+	/* ======== INTERFACE METHODS ======== */
+	public int getRows() { return rows; }
+	public int getColumns() { return columns; }
+	public int at(int row, int col) { return matrix[row][col]; }
+	public Matrix add (Matrix a, Matrix b) {
+		return MatrixOperations.ADD.apply(a, b);
+	}
+	public Matrix multiply (Matrix a, Matrix b) {
+		if ( canBeMultiplied(a, b) ) {
+			return MatrixOperations.MULTIPLY.apply(a, b);
+		} else {
+			return null;
+		}
+	}
+	public void printUpperTriangular() {
+		if (upperTriangular != null) {
+			printMatrix(upperTriangular);
+		}
+	}
+	public void printReducedRowEchelonForm() {
+		if (reducedRowEchelon != null) {
+			printMatrix(reducedRowEchelon);
+		}
+	}
+
+
+
 	/* ======== ABSTRACT METHODS ======== */
-	public abstract void calculateUpperTriangular();
-	public abstract void calculateReducedRowEchelonForm();
+	public abstract void calculateUpperTriangularMatrix();
+	//public abstract void calculateReducedRowEchelonFormMatrix();
 
 
+	/**
+	 * Calculates the upper triangular matrix via elimination
+	 */
+	public void calculateUpperTriangular() {
+		if (matrix.length > 0) {
+			if (upperTriangular == null) {
+				upperTriangular = new int[rows][columns];
+			}
+
+			// Copy the original matrix
+			{
+				for (int row = 0; row < rows; row++) {
+					upperTriangular[row] = matrix[row].clone();
+				}
+			}
+
+			calculateUpperTriangularMatrix();
+		}
+	}
 
 	/**
 	 * This method populates the matrix by an array of given element values.
@@ -144,7 +191,7 @@ abstract class AbstractMatrix implements Matrix {
 	 *
 	 * @param m: the matrix to be manipulated
 	 */
-	private void reorderPivotRows(int [][] m) {
+	void reorderPivotRows(int [][] m) {
 		// The index stands for the number of the row
 		// And the element is the position of the first non-zero element
 		int firstNonZeroElementsInRow[] = new int[m.length];
@@ -155,32 +202,33 @@ abstract class AbstractMatrix implements Matrix {
 					firstNonZeroElementsInRow[row] = column;
 					break;
 				}
-			}
 
-			firstNonZeroElementsInRow[row] = rows;
+				// Zero row
+				firstNonZeroElementsInRow[row] = rows;
+			}
 		}
 
 		// Compare each row with the others and swap if necessary
-		for (int row = rows - 1; row > 0; row--) {
-			int shortestRow = Integer.MAX_VALUE;
+		for (int row = 0; row < rows; row++) {
+			int longestRow = row;
 			// Place the first row first and so on
 
-			for (int i = 0; i < rows; i++) {
-				if (firstNonZeroElementsInRow[i] < shortestRow)
-					shortestRow = i;
+			for (int i = row + 1; i < rows; i++) {
+				if (firstNonZeroElementsInRow[i] < firstNonZeroElementsInRow[longestRow])
+					longestRow = i;
 			}
 
-			if ( firstNonZeroElementsInRow[row] < firstNonZeroElementsInRow[shortestRow] || firstNonZeroElementsInRow[shortestRow] == rows ) {
-				swapTwoRows(m, row, shortestRow);
+			if ( row != longestRow ) {
+				swapTwoRows(m, row, longestRow);
 
 				// Swap the values in the array we're looking
 				int temp = firstNonZeroElementsInRow[row];
-				firstNonZeroElementsInRow[row] = firstNonZeroElementsInRow[shortestRow];
-				firstNonZeroElementsInRow[shortestRow] = temp;
+				firstNonZeroElementsInRow[row] = firstNonZeroElementsInRow[longestRow];
+				firstNonZeroElementsInRow[longestRow] = temp;
 			}
 		}
 	}
-	private int getFirstNonZeroElement(ArrayList<Integer> arr) {
+	int getFirstNonZeroElement(ArrayList<Integer> arr) {
 		for (int a : arr) {
 			if (a != 0)
 				return a;
@@ -223,35 +271,20 @@ abstract class AbstractMatrix implements Matrix {
 
 		}
 	}
-	public void printUpperTriangularMatrix() {
-		if (upperTriangular != null) {
-			printMatrix(upperTriangular);
-		}
-	}
-	public void printReducedRowEchelonForm() {
-		if (reducedRowEchelon != null) {
-			printMatrix(reducedRowEchelon);
-		}
-	}
-
 
 
 	/* ======== STATIC METHODS ======== */
-	static boolean areSameSize(AbstractMatrix a, AbstractMatrix b) {
+	static boolean areSameSize(Matrix a, Matrix b) {
 		return ( a.getRows() == b.getRows()
 				&& a.getColumns() == b.getColumns());
 	}
-	static boolean canBeMultiplied(AbstractMatrix a, AbstractMatrix b) {
+	static boolean canBeMultiplied(Matrix a, Matrix b) {
 		return a.getColumns() == b.getRows();
 	}
 
 
 
 	/* ======== GETTERS ======== */
-	private int getRows() { return rows; }
-	private int getColumns() { return columns; }
-	int at(int row, int col) { return matrix[row][col]; }
-
 	int getRowProduct(int row) {
 		int product = 1;
 
@@ -270,7 +303,14 @@ abstract class AbstractMatrix implements Matrix {
 
 		return product;
 	}
-	ArrayList<Integer> getRowElements(int row) {
+
+	public ArrayList<Integer> getRowElements(int row) {
+		return getRowElements(matrix, row);
+	}
+	public ArrayList<Integer> getColumnElements(int column) {
+		return getColumnElements(matrix, column);
+	}
+	ArrayList<Integer> getRowElements(int [][] matrix, int row) {
 		ArrayList<Integer> rowElements = new ArrayList<>();
 
 		for (int column = 0; column < columns; column++) {
@@ -279,7 +319,7 @@ abstract class AbstractMatrix implements Matrix {
 
 		return rowElements;
 	}
-	ArrayList<Integer> getColumnElements(int column) {
+	ArrayList<Integer> getColumnElements(int [][] matrix, int column) {
 		ArrayList<Integer> colElements = new ArrayList<>();
 
 		for (int row = 0; row < rows; row++) {

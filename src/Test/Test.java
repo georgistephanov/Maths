@@ -2,7 +2,9 @@ package Test;
 
 import Maths.*;
 import Maths.Matrices.Matrix;
+import Maths.Matrices.MatrixFactory;
 import Maths.Matrices.MatrixOperation;
+import Maths.Matrices.SquareMatrix;
 
 public class Test {
 	public static void execute() {
@@ -10,8 +12,7 @@ public class Test {
 		double y = 2;
 		//testBasicOperations(BasicOperation.class, x, y);
 
-		Matrix a = new Matrix(5, 5, false);
-		Matrix b = new Matrix();
+		Matrix a = MatrixFactory.createMatrix(3, 3);
 
 		int elem1[] = {
 				3, 3, 2, 2, 3,
@@ -36,11 +37,10 @@ public class Test {
 		};
 
 		a.populateMatrix(elem1);
+		a.calculateUpperTriangular();
 
-		a.calculateMatrices();
 		System.out.println(a);
-		a.printUpperTriangularMatrix();
-		a.printReducedRowEchelonForm();
+		a.printUpperTriangular();
 
 		//testMatrixOperations(MatrixOperations.class, a, b);
 	}

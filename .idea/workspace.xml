@@ -2,13 +2,17 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="54a5ffb2-95f8-439b-915d-50c2d47b001c" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Maths/Matrices/AbstractMatrix.java" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Maths/Matrices/SquareMatrix.java" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Maths/Matrices/MatrixFactory.java" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/Mathematics/Maths/Matrix/Matrix.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/Mathematics/Maths/Matrix/MatrixOperation.class" afterPath="" />
+      <change type="DELETED" beforePath="$PROJECT_DIR$/out/production/Mathematics/Maths/Matrix/MatrixOperations.class" afterPath="" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Mathematics/Test/Test.class" afterPath="$PROJECT_DIR$/out/production/Mathematics/Test/Test.class" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Maths/Matrices/AbstractMatrix.java" afterPath="$PROJECT_DIR$/src/Maths/Matrices/AbstractMatrix.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Maths/Matrices/Matrix.java" afterPath="$PROJECT_DIR$/src/Maths/Matrices/Matrix.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Maths/Matrices/MatrixOperations.java" afterPath="$PROJECT_DIR$/src/Maths/Matrices/MatrixOperations.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Maths/Matrices/SquareMatrix.java" afterPath="$PROJECT_DIR$/src/Maths/Matrices/SquareMatrix.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Test/Test.java" afterPath="$PROJECT_DIR$/src/Test/Test.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/Maths/Matrix/Matrix.java" afterPath="$PROJECT_DIR$/src/Maths/Matrices/Matrix.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/Maths/Matrix/MatrixOperation.java" afterPath="$PROJECT_DIR$/src/Maths/Matrices/MatrixOperation.java" />
-      <change type="MOVED" beforePath="$PROJECT_DIR$/src/Maths/Matrix/MatrixOperations.java" afterPath="$PROJECT_DIR$/src/Maths/Matrices/MatrixOperations.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -28,11 +32,11 @@
     <splitter split-orientation="horizontal" split-proportion="0.46624663">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="600">
-          <file leaf-file-name="Test.java" pinned="false" current-in-tab="false">
+          <file leaf-file-name="Test.java" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/src/Test/Test.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="0">
-                  <caret line="12" column="31" lean-forward="false" selection-start-line="12" selection-start-column="31" selection-end-line="12" selection-end-column="31" />
+                <state relative-caret-position="160">
+                  <caret line="14" column="52" lean-forward="true" selection-start-line="14" selection-start-column="52" selection-end-line="14" selection-end-column="52" />
                   <folding>
                     <element signature="imports" expanded="true" />
                   </folding>
@@ -40,11 +44,11 @@
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="Matrix.java" pinned="false" current-in-tab="true">
+          <file leaf-file-name="Matrix.java" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/Maths/Matrices/Matrix.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="304">
-                  <caret line="14" column="8" lean-forward="false" selection-start-line="14" selection-start-column="8" selection-end-line="27" selection-end-column="9" />
+                <state relative-caret-position="720">
+                  <caret line="15" column="36" lean-forward="true" selection-start-line="15" selection-start-column="36" selection-end-line="15" selection-end-column="36" />
                   <folding />
                 </state>
               </provider>
@@ -53,50 +57,53 @@
         </leaf>
       </split-first>
       <split-second>
-        <leaf>
-          <file leaf-file-name="AbstractMatrix.java" pinned="false" current-in-tab="false">
+        <leaf SIDE_TABS_SIZE_LIMIT_KEY="600">
+          <file leaf-file-name="AbstractMatrix.java" pinned="false" current-in-tab="true">
             <entry file="file://$PROJECT_DIR$/src/Maths/Matrices/AbstractMatrix.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="528">
-                  <caret line="12" column="4" lean-forward="false" selection-start-line="12" selection-start-column="4" selection-end-line="12" selection-end-column="4" />
+                <state relative-caret-position="127">
+                  <caret line="115" column="30" lean-forward="false" selection-start-line="115" selection-start-column="16" selection-end-line="115" selection-end-column="30" />
                   <folding>
                     <element signature="method#AbstractMatrix#0;class#AbstractMatrix#0" expanded="false" />
                     <element signature="method#toString#0;class#AbstractMatrix#0" expanded="false" />
+                    <element signature="method#getRows#0;class#AbstractMatrix#0" expanded="false" />
+                    <element signature="method#getColumns#0;class#AbstractMatrix#0" expanded="false" />
+                    <element signature="method#at#0;class#AbstractMatrix#0" expanded="false" />
+                    <element signature="method#multiply#0;class#AbstractMatrix#0" expanded="false" />
+                    <element signature="method#printUpperTriangular#0;class#AbstractMatrix#0" expanded="false" />
+                    <element signature="method#printReducedRowEchelonForm#0;class#AbstractMatrix#0" expanded="false" />
+                    <element signature="docComment;method#calculateUpperTriangular#0;class#AbstractMatrix#0" expanded="false" />
+                    <element signature="method#calculateUpperTriangular#0;class#AbstractMatrix#0" expanded="false" />
                     <element signature="docComment;method#populateMatrix#0;class#AbstractMatrix#0" expanded="false" />
-                    <element signature="method#populateMatrix#0;class#AbstractMatrix#0" expanded="false" />
                     <element signature="docComment;method#populateMatrixRandomly#0;class#AbstractMatrix#0" expanded="false" />
                     <element signature="method#populateMatrixRandomly#0;class#AbstractMatrix#0" expanded="false" />
                     <element signature="docComment;method#fillRow#0;class#AbstractMatrix#0" expanded="false" />
                     <element signature="method#fillRow#0;class#AbstractMatrix#0" expanded="false" />
                     <element signature="docComment;method#reorderPivotRows#0;class#AbstractMatrix#0" expanded="false" />
-                    <element signature="method#reorderPivotRows#0;class#AbstractMatrix#0" expanded="false" />
-                    <element signature="e#3704#3749#0" expanded="false" />
+                    <element signature="e#4794#4839#0" expanded="false" />
                     <element signature="method#getFirstNonZeroElement#0;class#AbstractMatrix#0" expanded="false" />
                     <element signature="docComment;method#swapTwoRows#0;class#AbstractMatrix#0" expanded="false" />
-                    <element signature="method#swapTwoRows#0;class#AbstractMatrix#0" expanded="false" />
                     <element signature="docComment;method#printMatrix#0;class#AbstractMatrix#0" expanded="false" />
                     <element signature="method#printMatrix#0;class#AbstractMatrix#0" expanded="false" />
-                    <element signature="method#printUpperTriangularMatrix#0;class#AbstractMatrix#0" expanded="false" />
-                    <element signature="method#printReducedRowEchelonForm#0;class#AbstractMatrix#0" expanded="false" />
                     <element signature="method#areSameSize#0;class#AbstractMatrix#0" expanded="false" />
-                    <element signature="method#getRows#0;class#AbstractMatrix#0" expanded="false" />
-                    <element signature="method#getColumns#0;class#AbstractMatrix#0" expanded="false" />
-                    <element signature="method#at#0;class#AbstractMatrix#0" expanded="false" />
                     <element signature="method#getRowProduct#0;class#AbstractMatrix#0" expanded="false" />
                     <element signature="method#getColumnProduct#0;class#AbstractMatrix#0" expanded="false" />
-                    <element signature="method#getRowElements#0;class#AbstractMatrix#0" expanded="false" />
-                    <element signature="method#getColumnElements#0;class#AbstractMatrix#0" expanded="false" />
+                    <element signature="method#getRowElements#1;class#AbstractMatrix#0" expanded="false" />
+                    <element signature="method#getColumnElements#1;class#AbstractMatrix#0" expanded="false" />
                   </folding>
                 </state>
               </provider>
             </entry>
           </file>
-          <file leaf-file-name="SquareMatrix.java" pinned="false" current-in-tab="true">
+          <file leaf-file-name="SquareMatrix.java" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/Maths/Matrices/SquareMatrix.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="960">
-                  <caret line="24" column="0" lean-forward="true" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
-                  <folding />
+                <state relative-caret-position="499">
+                  <caret line="16" column="49" lean-forward="false" selection-start-line="16" selection-start-column="49" selection-end-line="16" selection-end-column="49" />
+                  <folding>
+                    <element signature="imports" expanded="true" />
+                    <element signature="method#calculateUpperTriangularMatrix#0;class#SquareMatrix#0" expanded="false" />
+                  </folding>
                 </state>
               </provider>
             </entry>
@@ -116,6 +123,7 @@
   <component name="FindInProjectRecents">
     <findStrings>
       <find>public</find>
+      <find>populateMatrix</find>
     </findStrings>
   </component>
   <component name="Git.Settings">
@@ -138,11 +146,13 @@
         <option value="$PROJECT_DIR$/src/Maths/BasicOperation.java" />
         <option value="$PROJECT_DIR$/src/Maths/Matrix/MatrixOperations.java" />
         <option value="$PROJECT_DIR$/src/Algorithms/Algorithm.java" />
-        <option value="$PROJECT_DIR$/src/Test/Test.java" />
         <option value="$PROJECT_DIR$/src/Maths/Matrix/Matrix.java" />
-        <option value="$PROJECT_DIR$/src/Maths/Matrices/SquareMatrix.java" />
-        <option value="$PROJECT_DIR$/src/Maths/Matrices/AbstractMatrix.java" />
+        <option value="$PROJECT_DIR$/src/Maths/Matrices/MatrixFactory.java" />
+        <option value="$PROJECT_DIR$/src/Maths/Matrices/MatrixOperations.java" />
         <option value="$PROJECT_DIR$/src/Maths/Matrices/Matrix.java" />
+        <option value="$PROJECT_DIR$/src/Maths/Matrices/AbstractMatrix.java" />
+        <option value="$PROJECT_DIR$/src/Maths/Matrices/SquareMatrix.java" />
+        <option value="$PROJECT_DIR$/src/Test/Test.java" />
       </list>
     </option>
   </component>
@@ -206,8 +216,8 @@
           <select />
         </subPane>
       </pane>
-      <pane id="Scratches" />
       <pane id="PackagesPane" />
+      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -270,20 +280,20 @@
     <editor active="true" />
     <layout>
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32978126" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3174425" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.42905217" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.13203125" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.37745374" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.521032" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32978126" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
@@ -296,11 +306,57 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
-      <option name="time" value="29" />
+      <option name="time" value="34" />
     </breakpoint-manager>
     <watches-manager />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/src/Maths/Matrices/AbstractMatrix.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="528">
+          <caret line="12" column="4" lean-forward="false" selection-start-line="12" selection-start-column="4" selection-end-line="12" selection-end-column="4" />
+          <folding>
+            <element signature="method#AbstractMatrix#0;class#AbstractMatrix#0" expanded="false" />
+            <element signature="method#toString#0;class#AbstractMatrix#0" expanded="false" />
+            <element signature="method#getRows#0;class#AbstractMatrix#0" expanded="false" />
+            <element signature="method#getColumns#0;class#AbstractMatrix#0" expanded="false" />
+            <element signature="method#at#0;class#AbstractMatrix#0" expanded="false" />
+            <element signature="method#multiply#0;class#AbstractMatrix#0" expanded="false" />
+            <element signature="method#printUpperTriangular#0;class#AbstractMatrix#0" expanded="false" />
+            <element signature="method#printReducedRowEchelonForm#0;class#AbstractMatrix#0" expanded="false" />
+            <element signature="docComment;method#calculateUpperTriangular#0;class#AbstractMatrix#0" expanded="false" />
+            <element signature="method#calculateUpperTriangular#0;class#AbstractMatrix#0" expanded="false" />
+            <element signature="docComment;method#populateMatrix#0;class#AbstractMatrix#0" expanded="false" />
+            <element signature="docComment;method#populateMatrixRandomly#0;class#AbstractMatrix#0" expanded="false" />
+            <element signature="method#populateMatrixRandomly#0;class#AbstractMatrix#0" expanded="false" />
+            <element signature="docComment;method#fillRow#0;class#AbstractMatrix#0" expanded="false" />
+            <element signature="method#fillRow#0;class#AbstractMatrix#0" expanded="false" />
+            <element signature="docComment;method#reorderPivotRows#0;class#AbstractMatrix#0" expanded="false" />
+            <element signature="e#4794#4839#0" expanded="false" />
+            <element signature="method#getFirstNonZeroElement#0;class#AbstractMatrix#0" expanded="false" />
+            <element signature="docComment;method#swapTwoRows#0;class#AbstractMatrix#0" expanded="false" />
+            <element signature="docComment;method#printMatrix#0;class#AbstractMatrix#0" expanded="false" />
+            <element signature="method#printMatrix#0;class#AbstractMatrix#0" expanded="false" />
+            <element signature="method#areSameSize#0;class#AbstractMatrix#0" expanded="false" />
+            <element signature="method#getRowProduct#0;class#AbstractMatrix#0" expanded="false" />
+            <element signature="method#getColumnProduct#0;class#AbstractMatrix#0" expanded="false" />
+            <element signature="method#getRowElements#1;class#AbstractMatrix#0" expanded="false" />
+            <element signature="method#getColumnElements#1;class#AbstractMatrix#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Maths/Matrices/SquareMatrix.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="960">
+          <caret line="24" column="0" lean-forward="true" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#calculateUpperTriangularMatrix#0;class#SquareMatrix#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/Test/Test.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="480">
@@ -669,16 +725,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Maths/Matrices/MatrixOperations.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1552">
-          <caret line="70" column="41" lean-forward="false" selection-start-line="70" selection-start-column="41" selection-end-line="70" selection-end-column="41" />
-          <folding>
-            <element signature="method#MatrixOperations#0;class#MatrixOperations#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/core/Main.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="413">
@@ -697,64 +743,85 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Test/Test.java">
+    <entry file="file://$PROJECT_DIR$/src/Maths/Matrices/MatrixFactory.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="12" column="31" lean-forward="false" selection-start-line="12" selection-start-column="31" selection-end-line="12" selection-end-column="31" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
+        <state relative-caret-position="528">
+          <caret line="11" column="0" lean-forward="false" selection-start-line="11" selection-start-column="0" selection-end-line="11" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Maths/Matrices/AbstractMatrix.java">
+    <entry file="file://$PROJECT_DIR$/src/Maths/Matrices/MatrixOperations.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="528">
-          <caret line="12" column="4" lean-forward="false" selection-start-line="12" selection-start-column="4" selection-end-line="12" selection-end-column="4" />
+        <state relative-caret-position="784">
+          <caret line="17" column="47" lean-forward="true" selection-start-line="17" selection-start-column="47" selection-end-line="17" selection-end-column="47" />
           <folding>
-            <element signature="method#AbstractMatrix#0;class#AbstractMatrix#0" expanded="false" />
-            <element signature="method#toString#0;class#AbstractMatrix#0" expanded="false" />
-            <element signature="docComment;method#populateMatrix#0;class#AbstractMatrix#0" expanded="false" />
-            <element signature="method#populateMatrix#0;class#AbstractMatrix#0" expanded="false" />
-            <element signature="docComment;method#populateMatrixRandomly#0;class#AbstractMatrix#0" expanded="false" />
-            <element signature="method#populateMatrixRandomly#0;class#AbstractMatrix#0" expanded="false" />
-            <element signature="docComment;method#fillRow#0;class#AbstractMatrix#0" expanded="false" />
-            <element signature="method#fillRow#0;class#AbstractMatrix#0" expanded="false" />
-            <element signature="docComment;method#reorderPivotRows#0;class#AbstractMatrix#0" expanded="false" />
-            <element signature="method#reorderPivotRows#0;class#AbstractMatrix#0" expanded="false" />
-            <element signature="e#3704#3749#0" expanded="false" />
-            <element signature="method#getFirstNonZeroElement#0;class#AbstractMatrix#0" expanded="false" />
-            <element signature="docComment;method#swapTwoRows#0;class#AbstractMatrix#0" expanded="false" />
-            <element signature="method#swapTwoRows#0;class#AbstractMatrix#0" expanded="false" />
-            <element signature="docComment;method#printMatrix#0;class#AbstractMatrix#0" expanded="false" />
-            <element signature="method#printMatrix#0;class#AbstractMatrix#0" expanded="false" />
-            <element signature="method#printUpperTriangularMatrix#0;class#AbstractMatrix#0" expanded="false" />
-            <element signature="method#printReducedRowEchelonForm#0;class#AbstractMatrix#0" expanded="false" />
-            <element signature="method#areSameSize#0;class#AbstractMatrix#0" expanded="false" />
-            <element signature="method#getRows#0;class#AbstractMatrix#0" expanded="false" />
-            <element signature="method#getColumns#0;class#AbstractMatrix#0" expanded="false" />
-            <element signature="method#at#0;class#AbstractMatrix#0" expanded="false" />
-            <element signature="method#getRowProduct#0;class#AbstractMatrix#0" expanded="false" />
-            <element signature="method#getColumnProduct#0;class#AbstractMatrix#0" expanded="false" />
-            <element signature="method#getRowElements#0;class#AbstractMatrix#0" expanded="false" />
-            <element signature="method#getColumnElements#0;class#AbstractMatrix#0" expanded="false" />
+            <element signature="method#MatrixOperations#0;class#MatrixOperations#0" expanded="false" />
           </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Maths/Matrices/Matrix.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="304">
-          <caret line="14" column="8" lean-forward="false" selection-start-line="14" selection-start-column="8" selection-end-line="27" selection-end-column="9" />
+        <state relative-caret-position="720">
+          <caret line="15" column="36" lean-forward="true" selection-start-line="15" selection-start-column="36" selection-end-line="15" selection-end-column="36" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/Maths/Matrices/SquareMatrix.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="960">
-          <caret line="24" column="0" lean-forward="true" selection-start-line="24" selection-start-column="0" selection-end-line="24" selection-end-column="0" />
-          <folding />
+        <state relative-caret-position="499">
+          <caret line="16" column="49" lean-forward="false" selection-start-line="16" selection-start-column="49" selection-end-line="16" selection-end-column="49" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="method#calculateUpperTriangularMatrix#0;class#SquareMatrix#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Maths/Matrices/AbstractMatrix.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="127">
+          <caret line="115" column="30" lean-forward="false" selection-start-line="115" selection-start-column="16" selection-end-line="115" selection-end-column="30" />
+          <folding>
+            <element signature="method#AbstractMatrix#0;class#AbstractMatrix#0" expanded="false" />
+            <element signature="method#toString#0;class#AbstractMatrix#0" expanded="false" />
+            <element signature="method#getRows#0;class#AbstractMatrix#0" expanded="false" />
+            <element signature="method#getColumns#0;class#AbstractMatrix#0" expanded="false" />
+            <element signature="method#at#0;class#AbstractMatrix#0" expanded="false" />
+            <element signature="method#multiply#0;class#AbstractMatrix#0" expanded="false" />
+            <element signature="method#printUpperTriangular#0;class#AbstractMatrix#0" expanded="false" />
+            <element signature="method#printReducedRowEchelonForm#0;class#AbstractMatrix#0" expanded="false" />
+            <element signature="docComment;method#calculateUpperTriangular#0;class#AbstractMatrix#0" expanded="false" />
+            <element signature="method#calculateUpperTriangular#0;class#AbstractMatrix#0" expanded="false" />
+            <element signature="docComment;method#populateMatrix#0;class#AbstractMatrix#0" expanded="false" />
+            <element signature="docComment;method#populateMatrixRandomly#0;class#AbstractMatrix#0" expanded="false" />
+            <element signature="method#populateMatrixRandomly#0;class#AbstractMatrix#0" expanded="false" />
+            <element signature="docComment;method#fillRow#0;class#AbstractMatrix#0" expanded="false" />
+            <element signature="method#fillRow#0;class#AbstractMatrix#0" expanded="false" />
+            <element signature="docComment;method#reorderPivotRows#0;class#AbstractMatrix#0" expanded="false" />
+            <element signature="e#4794#4839#0" expanded="false" />
+            <element signature="method#getFirstNonZeroElement#0;class#AbstractMatrix#0" expanded="false" />
+            <element signature="docComment;method#swapTwoRows#0;class#AbstractMatrix#0" expanded="false" />
+            <element signature="docComment;method#printMatrix#0;class#AbstractMatrix#0" expanded="false" />
+            <element signature="method#printMatrix#0;class#AbstractMatrix#0" expanded="false" />
+            <element signature="method#areSameSize#0;class#AbstractMatrix#0" expanded="false" />
+            <element signature="method#getRowProduct#0;class#AbstractMatrix#0" expanded="false" />
+            <element signature="method#getColumnProduct#0;class#AbstractMatrix#0" expanded="false" />
+            <element signature="method#getRowElements#1;class#AbstractMatrix#0" expanded="false" />
+            <element signature="method#getColumnElements#1;class#AbstractMatrix#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Test/Test.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="160">
+          <caret line="14" column="52" lean-forward="true" selection-start-line="14" selection-start-column="52" selection-end-line="14" selection-end-column="52" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
         </state>
       </provider>
     </entry>
