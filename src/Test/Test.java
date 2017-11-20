@@ -4,7 +4,6 @@ import Maths.*;
 import Maths.Matrices.Matrix;
 import Maths.Matrices.MatrixFactory;
 import Maths.Matrices.MatrixOperation;
-import Maths.Matrices.SquareMatrix;
 
 public class Test {
 	public static void execute() {
@@ -12,7 +11,7 @@ public class Test {
 		double y = 2;
 		//testBasicOperations(BasicOperation.class, x, y);
 
-		Matrix a = MatrixFactory.createMatrix(3, 5);
+		Matrix a = MatrixFactory.createMatrix(3, 3);
 
 		int elem1[] = {
 				3, 3, 2, 2, 3,

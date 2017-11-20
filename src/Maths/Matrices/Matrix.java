@@ -7,6 +7,8 @@ public interface Matrix {
 	int getColumns();
 	int getRows();
 	int at(int row, int col);
+
+	int getNumberOfPivots();
 	ArrayList<Integer> getRowElements(int row);
 	ArrayList<Integer> getColumnElements(int column);
 	// boolean hasInverse();
