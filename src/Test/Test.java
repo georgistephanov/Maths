@@ -12,7 +12,7 @@ public class Test {
 		double y = 2;
 		//testBasicOperations(BasicOperation.class, x, y);
 
-		Matrix a = MatrixFactory.createMatrix(3, 3);
+		Matrix a = MatrixFactory.createMatrix(3, 5);
 
 		int elem1[] = {
 				3, 3, 2, 2, 3,
@@ -36,7 +36,7 @@ public class Test {
 				2, 4, 7
 		};
 
-		a.populateMatrix(elem1);
+		a.populateMatrix(elem2);
 		a.calculateUpperTriangular();
 
 		System.out.println(a);
