@@ -23,4 +23,18 @@ public class MatrixFactory {
 		}
 	}
 
+	/**
+	 * Creates and returns a square matrix
+	 * @param size of the matrix
+	 * @return the newly created square matrix
+	 * @throws IllegalArgumentException if the size is less than 1
+	 */
+	public static SquareMatrix createSquareMatrix(int size) {
+		if (size < 1) {
+			throw new IllegalArgumentException("Illegal size of a matrix");
+		}
+
+		return new SquareMatrix(size);
+	}
+
 }

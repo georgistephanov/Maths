@@ -4,6 +4,7 @@ import Maths.*;
 import Maths.Matrices.Matrix;
 import Maths.Matrices.MatrixFactory;
 import Maths.Matrices.MatrixOperation;
+import Maths.Matrices.SquareMatrix;
 
 public class Test {
 	public static void execute() {
@@ -11,35 +12,39 @@ public class Test {
 		double y = 2;
 		//testBasicOperations(BasicOperation.class, x, y);
 
-		Matrix a = MatrixFactory.createMatrix(3, 3);
+		Matrix a = MatrixFactory.createMatrix(2, 2);
 
-		int elem1[] = {
-				3, 3, 2, 2, 3,
+		double elem1[] = {
+				3, 3, 2, 4, 3,
 				0, 0, 12, 4, 2,
 				0, 1, 1, 1, 1,
 				3, 3, 2, 2, 3,
 				0, 0, 6, 2, 1 };
 
-		int elem2[] = {
+		double elem2[] = {
 				0, 0, 2,
-				1, 2, 5,
-				2, 3, 1,
+				2, 2, 5,
+				1, 3, 1,
 				0, 3, 2,
 				1, 0, 5 };
 
-		int elem3[] = {2,1,  1,1,  3,6};
+		double elem3[] = {2,1,  1,1,  3,6};
 
-		int elem4[] = {
+		double elem4[] = {
 				1, 2, 3,
 				1, 2, 3,
 				2, 4, 7
 		};
 
-		a.populateMatrix(elem2);
+		a.populateMatrix(elem1);
 		a.calculateUpperTriangular();
 
 		System.out.println(a);
 		a.printUpperTriangular();
+
+		SquareMatrix s = MatrixFactory.createSquareMatrix(2);
+		s.populateMatrix(elem1);
+		System.out.println("Determinant: " + s.det());
 
 		//testMatrixOperations(MatrixOperations.class, a, b);
 	}

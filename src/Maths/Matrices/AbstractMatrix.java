@@ -1,23 +1,21 @@
 package Maths.Matrices;
 
-import Algorithms.Algorithm;
-
 import java.util.ArrayList;
 import java.util.Random;
 
 abstract class AbstractMatrix implements Matrix {
-	static int MATRIX_MAX_SIZE = 10;
-	static int MATRIX_DEFAULT_SIZE = 3;
-	static int MAX_ELEMENT_VALUE = 5;
-	static int MIN_ELEMENT_VALUE = -5;
-	static boolean NEGATIVE_ELEMENTS_ALLOWED = false;
+	private int MATRIX_MAX_SIZE = 10;
+	private int MATRIX_DEFAULT_SIZE = 3;
+	private int MAX_RANDOM_ELEMENT_VALUE = 5;
+	private int MIN_RANDOM_ELEMENT_VALUE = -5;
+	private boolean NEGATIVE_RANDOM_ELEMENTS_ALLOWED = false;
 
 	int rows;
 	int columns;
 	int pivots = -1;
-	int [][] matrix;
-	int [][] upperTriangular;
-	int [][] reducedRowEchelon;
+	double [][] matrix;
+	double [][] upperTriangular;
+	private double [][] reducedRowEchelon;
 
 	enum Type {
 		SQUARE, TALL, WIDE
@@ -30,7 +28,7 @@ abstract class AbstractMatrix implements Matrix {
 			this.rows = rows;
 			this.columns = cols;
 
-			matrix = new int[rows][cols];
+			matrix = new double[rows][cols];
 		} else {
 			this.rows = MATRIX_DEFAULT_SIZE;
 			this.columns = MATRIX_DEFAULT_SIZE;
@@ -56,9 +54,16 @@ abstract class AbstractMatrix implements Matrix {
 	public String toString() {
 		StringBuilder m = new StringBuilder();
 
-		for (int i = 0; i < rows; i++) {
-			for (int j = 0; j < columns; j++) {
-				m.append(matrix[i][j]).append("\t\t");
+		for (int row = 0; row < rows; row++) {
+			for (int col = 0; col < columns; col++) {
+
+				// This checks if the number is a whole number. If so -> print it without the decimal place
+				if ( matrix[row][col] == Math.floor(matrix[row][col]) ) {
+					m.append( (int) matrix[row][col] );
+				} else {
+					m.append( matrix[row][col] );
+				}
+				m.append("\t\t");
 			}
 			m.append("\n");
 		}
@@ -74,12 +79,12 @@ abstract class AbstractMatrix implements Matrix {
 
 	/**
 	 * Returns the element at the (row, col) position of the matrix
-	 * @param row
-	 * @param col
+	 * @param row number
+	 * @param col number
 	 * @return the element at the (row, col)
 	 * @throws IllegalArgumentException if the row or the col is not in the matrix
 	 */
-	public int at(int row, int col) {
+	public double at(int row, int col) {
 		if (row >= rows) {
 			throw new IllegalArgumentException("The row parameter is out of bounds");
 		}
@@ -91,8 +96,8 @@ abstract class AbstractMatrix implements Matrix {
 
 	/**
 	 * Adds two matrices
-	 * @param a
-	 * @param b
+	 * @param a matrix
+	 * @param b matrix
 	 * @return the matrix produced from the addition
 	 * @throws NullPointerException if a or b are null
 	 * @throws IllegalArgumentException if the two matrices are not of the same size
@@ -107,8 +112,8 @@ abstract class AbstractMatrix implements Matrix {
 
 	/**
 	 * Multiplies two matrices
-	 * @param a
-	 * @param b
+	 * @param a matrix
+	 * @param b matrix
 	 * @return the matrix produced by the multiplication
 	 * @throws IllegalArgumentException if the matrices could not be legally multiplied
 	 */
@@ -143,7 +148,7 @@ abstract class AbstractMatrix implements Matrix {
 		assert matrix.length > 0;
 
 		if (upperTriangular == null) {
-			upperTriangular = new int[rows][columns];
+			upperTriangular = new double[rows][columns];
 		}
 
 		// Copy the original matrix
@@ -175,30 +180,22 @@ abstract class AbstractMatrix implements Matrix {
 					continue;
 				}
 
-				ArrayList<Integer> pivotRow = getRowElements(upperTriangular, column);
-				ArrayList<Integer> currentRow = getRowElements(upperTriangular, row);
-				ArrayList<Integer> newRow = new ArrayList<>();
+				ArrayList<Double> pivotRow = getRowElements(upperTriangular, column);
+				ArrayList<Double> currentRow = getRowElements(upperTriangular, row);
+				ArrayList<Double> newRow = new ArrayList<>();
 
-				// Get the correct row multipliers
-				int multiplierPivotRow = upperTriangular[row][pivotColumn];
-				int multiplierCurrentRow = getFirstNonZeroElement(pivotRow);
-
-				// Find the smallest possible multipliers
-				int multipliersGCD = Algorithm.GCD(multiplierPivotRow, multiplierCurrentRow);
-				if ( multipliersGCD > 1 ) {
-					multiplierPivotRow /= multipliersGCD;
-					multiplierCurrentRow /= multipliersGCD;
-				}
+				// Get the correct row multiplier
+				double multiplierPivotRow = upperTriangular[row][pivotColumn] / getFirstNonZeroElement(pivotRow);
 
 				for (int i = 0; i < columns; i++) {
-					int currentRowElement = currentRow.get(i);
-					int pivotRowElement = pivotRow.get(i);
+					double currentRowElement = currentRow.get(i);
+					double pivotRowElement = pivotRow.get(i);
 
 					// If both elements are zero -> no need to make calculations
 					if (currentRowElement == 0 && pivotRowElement == 0) {
-						newRow.add(0);
+						newRow.add((double) 0);
 					} else {
-						newRow.add( currentRowElement * multiplierCurrentRow - pivotRowElement * multiplierPivotRow );
+						newRow.add( currentRowElement - pivotRowElement * multiplierPivotRow );
 					}
 				}
 
@@ -228,7 +225,7 @@ abstract class AbstractMatrix implements Matrix {
 	 * @param elements -> array of integers with the values in a following
 	 *                    order going row by row
 	 */
-	public void populateMatrix(int [] elements) {
+	public void populateMatrix(double [] elements) {
 		assert elements != null && elements.length > 0;
 
 		int elementIndex = 0;
@@ -258,7 +255,7 @@ abstract class AbstractMatrix implements Matrix {
 
 	/**
 	 * This method populates the matrix elements with random values between
-	 * the MIN_ELEMENT_VALUE and MAX_ELEMENT_VALUE constants
+	 * the MIN_RANDOM_ELEMENT_VALUE and MAX_RANDOM_ELEMENT_VALUE constants
 	 */
 	private void populateMatrixRandomly() {
 		assert matrix != null;
@@ -267,10 +264,10 @@ abstract class AbstractMatrix implements Matrix {
 
 		for (int i = 0; i < rows; i++) {
 			for (int j = 0; j < columns; j++) {
-				if ( NEGATIVE_ELEMENTS_ALLOWED ) {
-					matrix[i][j] = rand.nextInt(MAX_ELEMENT_VALUE - MIN_ELEMENT_VALUE) + MIN_ELEMENT_VALUE;
+				if (NEGATIVE_RANDOM_ELEMENTS_ALLOWED) {
+					matrix[i][j] = rand.nextInt(MAX_RANDOM_ELEMENT_VALUE - MIN_RANDOM_ELEMENT_VALUE) + MIN_RANDOM_ELEMENT_VALUE;
 				} else {
-					matrix[i][j] = rand.nextInt(MAX_ELEMENT_VALUE);
+					matrix[i][j] = rand.nextInt(MAX_RANDOM_ELEMENT_VALUE);
 				}
 			}
 		}
@@ -283,7 +280,7 @@ abstract class AbstractMatrix implements Matrix {
 	 * @param row -> the number of the row to be filled
 	 * @param elements -> an ArrayList of integers with which to fill the row of the matrix
 	 */
-	private void fillRow(int [][] m, int row, ArrayList<Integer> elements) {
+	private void fillRow(double [][] m, int row, ArrayList<Double> elements) {
 		assert m != null;
 		assert row > 0 && row < rows;
 		assert elements != null;
@@ -314,7 +311,7 @@ abstract class AbstractMatrix implements Matrix {
 	 *
 	 * @param m: the matrix to be manipulated
 	 */
-	private void reorderPivotRows(int [][] m) {
+	private void reorderPivotRows(double [][] m) {
 		assert m != null;
 		assert m.length != 0;
 
@@ -354,10 +351,10 @@ abstract class AbstractMatrix implements Matrix {
 			}
 		}
 	}
-	private int getFirstNonZeroElement(ArrayList<Integer> arr) {
+	private double getFirstNonZeroElement(ArrayList<Double> arr) {
 		assert arr != null && !arr.isEmpty();
 
-		for (int a : arr) {
+		for (double a : arr) {
 			if (a != 0)
 				return a;
 		}
@@ -370,12 +367,12 @@ abstract class AbstractMatrix implements Matrix {
 	 * @param m: the matrix to be manipulated
 	 * @param row1, row2: the rows to be swapped
 	 */
-	private void swapTwoRows(int [][] m, int row1, int row2) {
+	private void swapTwoRows(double [][] m, int row1, int row2) {
 		assert m.length > 0 && row1 < m.length && row2 < m.length;
 
 		if ( row1 != row2 ) {
 			for (int col = 0; col < m[0].length; col++) {
-				int temp = m[row1][col];
+				double temp = m[row1][col];
 				m[row1][col] = m[row2][col];
 				m[row2][col] = temp;
 			}
@@ -388,12 +385,18 @@ abstract class AbstractMatrix implements Matrix {
 	 *
 	 * @param m: the matrix which is to be printed
 	 */
-	private void printMatrix(int [][] m) {
+	private void printMatrix(double [][] m) {
 		assert m != null && m.length > 0;
 
 		for (int row = 0; row < rows; row++) {
 			for (int col = 0; col < columns; col++) {
-				System.out.print(m[row][col] + "\t\t");
+
+				// This checks if the number is a whole number. If so -> print it without the decimal place
+				if ( m[row][col] == Math.floor(m[row][col]) ) {
+					System.out.printf("%d\t\t", (int) m[row][col]);
+				} else {
+					System.out.printf("%.1f\t\t", m[row][col]);
+				}
 			}
 			System.out.println();
 		}
@@ -418,7 +421,7 @@ abstract class AbstractMatrix implements Matrix {
 
 
 	/* ======== GETTERS ======== */
-	int getRowProduct(int row) {
+	double getRowProduct(int row) {
 		assert row >= 0 && row < rows;
 
 		int product = 1;
@@ -429,7 +432,7 @@ abstract class AbstractMatrix implements Matrix {
 
 		return product;
 	}
-	int getColumnProduct(int column) {
+	double getColumnProduct(int column) {
 		assert column >= 0 && column < columns;
 
 		int product = 1;
@@ -440,7 +443,7 @@ abstract class AbstractMatrix implements Matrix {
 
 		return product;
 	}
-	private long getMatrixElementsSum() {
+	private double getMatrixElementsSum() {
 		int sum = 0;
 
 		for (int row = 0; row < rows; row++) {
@@ -455,21 +458,21 @@ abstract class AbstractMatrix implements Matrix {
 	public int getNumberOfPivots() {
 		return pivots;
 	}
-	public ArrayList<Integer> getRowElements(int row) {
+	public ArrayList<Double> getRowElements(int row) {
 		assert row >= 0 && row < rows;
 
 		return getRowElements(matrix, row);
 	}
-	public ArrayList<Integer> getColumnElements(int column) {
+	public ArrayList<Double> getColumnElements(int column) {
 		assert column >= 0 && column < columns;
 
 		return getColumnElements(matrix, column);
 	}
-	private ArrayList<Integer> getRowElements(int [][] matrix, int row) {
+	private ArrayList<Double> getRowElements(double [][] matrix, int row) {
 		assert matrix != null && matrix.length > 0;
 		assert row >= 0 && row < rows;
 
-		ArrayList<Integer> rowElements = new ArrayList<>();
+		ArrayList<Double> rowElements = new ArrayList<>();
 
 		for (int column = 0; column < columns; column++) {
 			rowElements.add( matrix[row][column] );
@@ -477,11 +480,11 @@ abstract class AbstractMatrix implements Matrix {
 
 		return rowElements;
 	}
-	private ArrayList<Integer> getColumnElements(int [][] matrix, int column) {
+	private ArrayList<Double> getColumnElements(double [][] matrix, int column) {
 		assert matrix != null && matrix.length > 0;
 		assert column >= 0 && column < columns;
 
-		ArrayList<Integer> colElements = new ArrayList<>();
+		ArrayList<Double> colElements = new ArrayList<>();
 
 		for (int row = 0; row < rows; row++) {
 			colElements.add( matrix[row][column] );
@@ -492,7 +495,7 @@ abstract class AbstractMatrix implements Matrix {
 
 
 	/* ======== HELPER METHODS ======== */
-	private boolean isNullRow(int [][] m, int row) {
+	private boolean isNullRow(double [][] m, int row) {
 		assert m != null && m.length > 0;
 		assert row >= 0 && row < rows;
 

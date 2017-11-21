@@ -5,7 +5,7 @@ import java.util.ArrayList;
 public enum MatrixOperations implements MatrixOperation {
 	ADD ("+", (a, b) -> {
 		if (AbstractMatrix.areSameSize(a, b)) {
-			int elements[] = new int[a.getColumns() * a.getRows()];
+			double elements[] = new double[a.getColumns() * a.getRows()];
 			int elementIndex = 0;
 
 			for (int i = 0; i < a.getRows(); i++) {
@@ -25,7 +25,7 @@ public enum MatrixOperations implements MatrixOperation {
 	}),
 	SUBTRACT ("-", (a, b) -> {
 		if (AbstractMatrix.areSameSize(a, b)) {
-			int elements[] = new int[a.getColumns() * a.getRows()];
+			double elements[] = new double[a.getColumns() * a.getRows()];
 			int elementIndex = 0;
 
 			for (int i = 0; i < a.getRows(); i++) {
@@ -45,17 +45,17 @@ public enum MatrixOperations implements MatrixOperation {
 	}),
 	MULTIPLY ("*", (a, b) -> {
 		if (AbstractMatrix.canBeMultiplied(a, b)) {
-			int elements[] = new int[a.getColumns() * a.getRows()];
+			double elements[] = new double[a.getColumns() * a.getRows()];
 			int elementIndex = 0;
 
 			int row = 0;
 			int col = 0;
 
 			for (int i = 0; i < a.getRows(); i++) {
-				ArrayList<Integer> rowElements = a.getRowElements(i);
+				ArrayList<Double> rowElements = a.getRowElements(i);
 
 				for (int j = 0; j < a.getColumns(); j++) {
-					ArrayList<Integer> colElements = b.getColumnElements(j);
+					ArrayList<Double> colElements = b.getColumnElements(j);
 
 					int elementAtThisIndex = 0;
 

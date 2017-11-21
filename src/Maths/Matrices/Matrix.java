@@ -3,14 +3,14 @@ package Maths.Matrices;
 import java.util.ArrayList;
 
 public interface Matrix {
-	void populateMatrix(int [] elements);
+	void populateMatrix(double [] elements);
 	int getColumns();
 	int getRows();
-	int at(int row, int col);
+	double at(int row, int col);
 
 	int getNumberOfPivots();
-	ArrayList<Integer> getRowElements(int row);
-	ArrayList<Integer> getColumnElements(int column);
+	ArrayList<Double> getRowElements(int row);
+	ArrayList<Double> getColumnElements(int column);
 	// boolean hasInverse();
 
 	Matrix add(Matrix a, Matrix b);
