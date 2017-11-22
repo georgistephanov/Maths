@@ -15,7 +15,7 @@ public class Test {
 		Matrix a = MatrixFactory.createMatrix(2, 2);
 
 		double elem1[] = {
-				3, 3, 2, 4, 3,
+				0, 1, 1, 0, 3,
 				0, 0, 12, 4, 2,
 				0, 1, 1, 1, 1,
 				3, 3, 2, 2, 3,
@@ -44,12 +44,9 @@ public class Test {
 
 		SquareMatrix s = MatrixFactory.createSquareMatrix(2);
 		s.populateMatrix(elem1);
-		System.out.println("Determinant: " + s.det());
+		s.eig();
 
 		Matrix b = MatrixFactory.createMatrix(2, 2);
-
-		Equations.QUADRATIC.apply("3x^2+4x-7");
-
 		//testMatrixOperations(MatrixOperations.class, a, b);
 	}
 

@@ -5,7 +5,7 @@ public enum BasicOperation implements NumericOperation {
 	MINUS 		("-", (x, y) -> x - y),
 	MULTIPLY 	("*", (x, y) -> x * y),
 	DIVIDE 		("/", (x, y) -> x / y),
-	EXP 		("^", (x, y) -> Math.pow(x, y)),
+	POW 		("^", (x, y) -> Math.pow(x, y)),
 	REM 		("%", (x, y) -> x % y);
 
 	private final String symbol;

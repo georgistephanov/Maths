@@ -1,5 +1,7 @@
 package Maths.Matrices;
 
+import Maths.Equations;
+
 public class SquareMatrix extends AbstractMatrix {
 
 	private double determinant;
@@ -60,7 +62,39 @@ public class SquareMatrix extends AbstractMatrix {
 			eigenvalues[0] = matrix[rows][columns];
 		}
 		else if (rows == 2) {
+			// det(A - lambda*I) = 0 which leads to a quadratic equation
+			String equation = "x^2";
 
+			// this is the coefficient in front of the x
+			double b = -(matrix[0][0] + matrix[1][1]);
+
+			// ad - bc
+			double c = matrix[0][0] * matrix[1][1] - matrix[0][1] * matrix[1][0];
+
+			if (b >= 0) {
+				equation += "+";
+			}
+			if (Math.floor(b) == b) {
+				equation += (int) b + "x";
+			} else {
+				equation += b;
+			}
+
+			if (c != 0) {
+				if (c > 0) {
+					equation += "+";
+				}
+				if (Math.floor(c) == c) {
+					equation += (int) c;
+				} else {
+					equation += c;
+				}
+			}
+
+			System.out.println(equation);
+
+			eigenvalues = Equations.QUADRATIC.apply(equation);
+			System.out.println("lambda1=" + eigenvalues[0] + "\tlambda2=" + eigenvalues[1] );
 		}
 
 		return eigenvalues;
