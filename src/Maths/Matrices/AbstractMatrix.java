@@ -39,15 +39,39 @@ abstract class AbstractMatrix implements Matrix {
 		}
 	}
 
-	// TODO: Implement this together with the hash function
 	@Override
 	public boolean equals(Object obj) {
-		return super.equals(obj);
+		if ( this == obj ) {
+			return true;
+		}
+
+		if ( obj == null ) {
+			return false;
+		}
+
+		if ( !(obj instanceof AbstractMatrix) ) {
+			return false;
+		}
+
+		AbstractMatrix m = (AbstractMatrix) obj;
+		if ( rows == m.getRows() && columns == m.getColumns() ) {
+			for (int row = 0; row < rows; row++) {
+				for (int col = 0; col < columns; col++) {
+					if ( this.matrix[row][col] != m.matrix[row][col] ) {
+						return false;
+					}
+				}
+			}
+
+			return true;
+		}
+
+		return false;
 	}
 
 	@Override
 	public int hashCode() {
-		return (int) getMatrixElementsSum() % 97;
+		return (int) ( getMatrixElementsSum() + rows + columns ) % 97;
 	}
 
 	@Override

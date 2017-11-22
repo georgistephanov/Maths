@@ -46,6 +46,10 @@ public class Test {
 		s.populateMatrix(elem1);
 		System.out.println("Determinant: " + s.det());
 
+		Matrix b = MatrixFactory.createMatrix(2, 2);
+
+		Equations.QUADRATIC.apply("3x^2+4x-7");
+
 		//testMatrixOperations(MatrixOperations.class, a, b);
 	}
 

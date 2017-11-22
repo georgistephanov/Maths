@@ -47,13 +47,23 @@ public class SquareMatrix extends AbstractMatrix {
 
 	/**
 	 * Calculates the eigenvalues of the matrix.
+	 * Supports up to 2x2 matrices as of now.
 	 */
-	public void eig() {
+	public double [] eig() {
+		assert rows <= 2;
+
 		if (eigenvalues == null) {
 			eigenvalues = new double[rows];
 		}
 
-		// TODO: In order to be computed -> Identity matrix is needed and the determinant
+		if (rows == 1) {
+			eigenvalues[0] = matrix[rows][columns];
+		}
+		else if (rows == 2) {
+
+		}
+
+		return eigenvalues;
 	}
 
 }
