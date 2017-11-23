@@ -1,7 +1,7 @@
-package Test;
+package test;
 
-import Maths.*;
-import Maths.Matrices.*;
+import maths.*;
+import maths.matrices.*;
 
 public class Test {
 	public static void execute() {

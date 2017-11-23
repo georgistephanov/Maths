@@ -1,4 +1,4 @@
-package Maths;
+package maths;
 
 public enum BasicOperation implements NumericOperation {
 	PLUS 		("+", (x, y) -> x + y),

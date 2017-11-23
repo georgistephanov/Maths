@@ -1,4 +1,4 @@
-package Maths.Matrices;
+package maths.matrices;
 
 class TallMatrix extends AbstractMatrix {
 

@@ -1,4 +1,4 @@
-package Maths.Matrices;
+package maths.matrices;
 
 public class IdentityMatrix extends SquareMatrix {
 	IdentityMatrix(int size) {

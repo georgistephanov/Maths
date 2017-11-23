@@ -1,6 +1,6 @@
-package Maths.Matrices;
+package maths.matrices;
 
-import Maths.Equations;
+import maths.Equations;
 
 public class SquareMatrix extends AbstractMatrix {
 
