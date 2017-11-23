@@ -100,6 +100,11 @@ abstract class AbstractMatrix implements Matrix {
 	/* ======== INTERFACE METHODS ======== */
 	public int getRows() { return rows; }
 	public int getColumns() { return columns; }
+
+	/**
+	 * Calculates and returns the transpose of the matrix
+	 * @return transpose matrix
+	 */
 	public Matrix transpose() {
 		double [] elements = new double[rows * columns];
 		int elementIndex = 0;
@@ -164,12 +169,14 @@ abstract class AbstractMatrix implements Matrix {
 		return MatrixOperations.MULTIPLY.apply(a, b);
 	}
 	public void printUpperTriangular() {
-		if (upperTriangular != null) {
-			printMatrix(upperTriangular);
+		if (upperTriangular == null) {
+			calculateUpperTriangular();
 		}
+
+		printMatrix(upperTriangular);
 	}
 	public void printReducedRowEchelonForm() {
-		if (reducedRowEchelon != null) {
+		if (reducedRowEchelon == null) {
 			printMatrix(reducedRowEchelon);
 		}
 	}
@@ -494,7 +501,11 @@ abstract class AbstractMatrix implements Matrix {
 		return sum;
 	}
 
-	public int getNumberOfPivots() {
+	public int getRank() {
+		if (pivots == -1) {
+			calculateUpperTriangular();
+		}
+
 		return pivots;
 	}
 	public ArrayList<Double> getRowElements(int row) {

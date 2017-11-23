@@ -9,7 +9,7 @@ public interface Matrix {
 	double at(int row, int col);
 	Matrix transpose();
 
-	int getNumberOfPivots();
+	int getRank();
 	ArrayList<Double> getRowElements(int row);
 	ArrayList<Double> getColumnElements(int column);
 	// boolean hasInverse();

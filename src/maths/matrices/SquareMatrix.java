@@ -107,7 +107,16 @@ public class SquareMatrix extends AbstractMatrix {
 	}
 
 	public boolean isSymmetric() {
-		//TODO: Implement this
+		for (int row = 0; row < rows; row++) {
+			for (int col = 0; col < columns; col++) {
+				if (row != col) {
+					if (matrix[row][col] != matrix[col][row]) {
+						return false;
+					}
+				}
+			}
+		}
+		
 		return true;
 	}
 

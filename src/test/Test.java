@@ -9,13 +9,12 @@ public class Test {
 		double y = 2;
 		//testBasicOperations(BasicOperation.class, x, y);
 
-		Matrix a = MatrixFactory.createMatrix(3, 4);
+		Matrix a = MatrixFactory.createMatrix(3, 3);
 
 		double elem[] = {
 				1, 2, 3,
-				4, 5, 6,
-				7, 8, 9,
-				10, 11, 12
+				0, 3, 4,
+				1, 4, 4
 		};
 
 		double elem1[] = {
@@ -41,10 +40,7 @@ public class Test {
 		};
 
 		a.populateMatrix(elem);
-
-		Matrix t = a.transpose();
-		Matrix ata = MatrixOperations.MULTIPLY.apply(a, t);
-		System.out.println(ata);
+		a.printUpperTriangular();
 
 	}
 
