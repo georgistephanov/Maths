@@ -45,7 +45,7 @@ public enum MatrixOperations implements MatrixOperation {
 	}),
 	MULTIPLY ("*", (a, b) -> {
 		if (AbstractMatrix.canBeMultiplied(a, b)) {
-			double elements[] = new double[a.getColumns() * a.getRows()];
+			double elements[] = new double[a.getRows() * b.getColumns()];
 			int elementIndex = 0;
 
 			int row = 0;
@@ -54,7 +54,7 @@ public enum MatrixOperations implements MatrixOperation {
 			for (int i = 0; i < a.getRows(); i++) {
 				ArrayList<Double> rowElements = a.getRowElements(i);
 
-				for (int j = 0; j < a.getColumns(); j++) {
+				for (int j = 0; j < b.getColumns(); j++) {
 					ArrayList<Double> colElements = b.getColumnElements(j);
 
 					int elementAtThisIndex = 0;

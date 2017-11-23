@@ -43,7 +43,8 @@ public class Test {
 		a.populateMatrix(elem);
 
 		Matrix t = a.transpose();
-		//System.out.println(t.toString());
+		Matrix ata = MatrixOperations.MULTIPLY.apply(a, t);
+		System.out.println(ata);
 
 	}
 

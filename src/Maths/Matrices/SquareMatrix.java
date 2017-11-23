@@ -106,4 +106,9 @@ public class SquareMatrix extends AbstractMatrix {
 		return det() != 0;
 	}
 
+	public boolean isSymmetric() {
+		//TODO: Implement this
+		return true;
+	}
+
 }

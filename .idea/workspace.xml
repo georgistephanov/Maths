@@ -2,8 +2,13 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="54a5ffb2-95f8-439b-915d-50c2d47b001c" name="Default" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Mathematics/Maths/Matrices/AbstractMatrix$Type.class" afterPath="$PROJECT_DIR$/out/production/Mathematics/Maths/Matrices/AbstractMatrix$Type.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Mathematics/Maths/Matrices/AbstractMatrix.class" afterPath="$PROJECT_DIR$/out/production/Mathematics/Maths/Matrices/AbstractMatrix.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Mathematics/Test/Test.class" afterPath="$PROJECT_DIR$/out/production/Mathematics/Test/Test.class" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Maths/Matrices/AbstractMatrix.java" afterPath="$PROJECT_DIR$/src/Maths/Matrices/AbstractMatrix.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Maths/Matrices/Matrix.java" afterPath="$PROJECT_DIR$/src/Maths/Matrices/Matrix.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Maths/Matrices/MatrixOperations.java" afterPath="$PROJECT_DIR$/src/Maths/Matrices/MatrixOperations.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Maths/Matrices/SquareMatrix.java" afterPath="$PROJECT_DIR$/src/Maths/Matrices/SquareMatrix.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/Test/Test.java" afterPath="$PROJECT_DIR$/src/Test/Test.java" />
     </list>
     <ignored path="$PROJECT_DIR$/out/" />
@@ -24,13 +29,32 @@
     <splitter split-orientation="horizontal" split-proportion="0.42604166">
       <split-first>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="600">
-          <file leaf-file-name="Test.java" pinned="false" current-in-tab="true">
+          <file leaf-file-name="Test.java" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/Test/Test.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="753">
-                  <caret line="45" column="10" lean-forward="false" selection-start-line="45" selection-start-column="10" selection-end-line="45" selection-end-column="10" />
+                <state relative-caret-position="720">
+                  <caret line="45" column="59" lean-forward="true" selection-start-line="45" selection-start-column="59" selection-end-line="45" selection-end-column="59" />
                   <folding>
                     <element signature="imports" expanded="true" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="SquareMatrix.java" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/src/Maths/Matrices/SquareMatrix.java">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="960">
+                  <caret line="110" column="20" lean-forward="false" selection-start-line="110" selection-start-column="20" selection-end-line="110" selection-end-column="20" />
+                  <folding>
+                    <element signature="method#SquareMatrix#0;class#SquareMatrix#0" expanded="false" />
+                    <element signature="method#SquareMatrix#1;class#SquareMatrix#0" expanded="false" />
+                    <element signature="docComment;method#det#0;class#SquareMatrix#0" expanded="false" />
+                    <element signature="method#det#0;class#SquareMatrix#0" expanded="false" />
+                    <element signature="docComment;method#eig#0;class#SquareMatrix#0" expanded="false" />
+                    <element signature="method#eig#0;class#SquareMatrix#0" expanded="false" />
+                    <element signature="e#2232#2233#0" expanded="true" />
+                    <element signature="e#2256#2257#0" expanded="true" />
                   </folding>
                 </state>
               </provider>
@@ -50,11 +74,11 @@
       </split-first>
       <split-second>
         <leaf SIDE_TABS_SIZE_LIMIT_KEY="600">
-          <file leaf-file-name="AbstractMatrix.java" pinned="false" current-in-tab="true">
+          <file leaf-file-name="AbstractMatrix.java" pinned="false" current-in-tab="false">
             <entry file="file://$PROJECT_DIR$/src/Maths/Matrices/AbstractMatrix.java">
               <provider selected="true" editor-type-id="text-editor">
-                <state relative-caret-position="369">
-                  <caret line="434" column="50" lean-forward="true" selection-start-line="434" selection-start-column="50" selection-end-line="434" selection-end-column="50" />
+                <state relative-caret-position="513">
+                  <caret line="528" column="0" lean-forward="false" selection-start-line="528" selection-start-column="0" selection-end-line="528" selection-end-column="0" />
                   <folding>
                     <element signature="class#Type#0;class#AbstractMatrix#0" expanded="false" />
                     <element signature="method#AbstractMatrix#0;class#AbstractMatrix#0" expanded="false" />
@@ -80,7 +104,7 @@
                     <element signature="method#fillRow#0;class#AbstractMatrix#0" expanded="false" />
                     <element signature="docComment;method#reorderPivotRows#0;class#AbstractMatrix#0" expanded="false" />
                     <element signature="method#reorderPivotRows#0;class#AbstractMatrix#0" expanded="false" />
-                    <element signature="e#9166#9211#0" expanded="false" />
+                    <element signature="e#9030#9075#0" expanded="false" />
                     <element signature="method#getFirstNonZeroElement#0;class#AbstractMatrix#0" expanded="false" />
                     <element signature="docComment;method#swapTwoRows#0;class#AbstractMatrix#0" expanded="false" />
                     <element signature="method#swapTwoRows#0;class#AbstractMatrix#0" expanded="false" />
@@ -91,10 +115,20 @@
                     <element signature="method#getColumnProduct#0;class#AbstractMatrix#0" expanded="false" />
                     <element signature="method#getMatrixElementsSum#0;class#AbstractMatrix#0" expanded="false" />
                     <element signature="method#getRowElements#0;class#AbstractMatrix#0" expanded="false" />
-                    <element signature="method#getColumnElements#0;class#AbstractMatrix#0" expanded="false" />
                     <element signature="method#getRowElements#1;class#AbstractMatrix#0" expanded="false" />
-                    <element signature="method#getColumnElements#1;class#AbstractMatrix#0" expanded="false" />
                     <element signature="method#isNullRow#0;class#AbstractMatrix#0" expanded="false" />
+                  </folding>
+                </state>
+              </provider>
+            </entry>
+          </file>
+          <file leaf-file-name="MatrixOperations.java" pinned="false" current-in-tab="true">
+            <entry file="file://$PROJECT_DIR$/src/Maths/Matrices/MatrixOperations.java">
+              <provider selected="true" editor-type-id="text-editor">
+                <state relative-caret-position="719">
+                  <caret line="69" column="62" lean-forward="false" selection-start-line="69" selection-start-column="62" selection-end-line="69" selection-end-column="74" />
+                  <folding>
+                    <element signature="method#MatrixOperations#0;class#MatrixOperations#0" expanded="false" />
                   </folding>
                 </state>
               </provider>
@@ -140,16 +174,16 @@
         <option value="$PROJECT_DIR$/src/Maths/Matrix/Matrix.java" />
         <option value="$PROJECT_DIR$/src/Maths/Matrices/TallMatrix.java" />
         <option value="$PROJECT_DIR$/src/Maths/Matrices/WideMatrix.java" />
-        <option value="$PROJECT_DIR$/src/Maths/Matrices/MatrixOperations.java" />
         <option value="$PROJECT_DIR$/src/Maths/Equation.java" />
         <option value="$PROJECT_DIR$/src/Maths/BasicOperation.java" />
-        <option value="$PROJECT_DIR$/src/Maths/Matrices/SquareMatrix.java" />
         <option value="$PROJECT_DIR$/src/Maths/Matrices/IdentityMatrix.java" />
         <option value="$PROJECT_DIR$/src/Maths/Matrices/MatrixFactory.java" />
         <option value="$PROJECT_DIR$/src/Maths/Equations.java" />
         <option value="$PROJECT_DIR$/src/Maths/Matrices/Matrix.java" />
-        <option value="$PROJECT_DIR$/src/Test/Test.java" />
         <option value="$PROJECT_DIR$/src/Maths/Matrices/AbstractMatrix.java" />
+        <option value="$PROJECT_DIR$/src/Maths/Matrices/MatrixOperations.java" />
+        <option value="$PROJECT_DIR$/src/Test/Test.java" />
+        <option value="$PROJECT_DIR$/src/Maths/Matrices/SquareMatrix.java" />
       </list>
     </option>
   </component>
@@ -281,14 +315,14 @@
       <window_info id="Palette&#9;" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="10" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3034212" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.3034212" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.13203125" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.521032" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.35445878" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
@@ -731,55 +765,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Maths/Matrices/MatrixOperations.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="335">
-          <caret line="77" column="5" lean-forward="true" selection-start-line="77" selection-start-column="5" selection-end-line="77" selection-end-column="5" />
-          <folding>
-            <element signature="method#MatrixOperations#0;class#MatrixOperations#0" expanded="false" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Maths/Matrices/SquareMatrix.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1008">
-          <caret line="105" column="26" lean-forward="true" selection-start-line="105" selection-start-column="26" selection-end-line="105" selection-end-column="26" />
-          <folding>
-            <element signature="method#SquareMatrix#0;class#SquareMatrix#0" expanded="false" />
-            <element signature="method#SquareMatrix#1;class#SquareMatrix#0" expanded="false" />
-            <element signature="docComment;method#det#0;class#SquareMatrix#0" expanded="false" />
-            <element signature="method#det#0;class#SquareMatrix#0" expanded="false" />
-            <element signature="docComment;method#eig#0;class#SquareMatrix#0" expanded="false" />
-            <element signature="method#eig#0;class#SquareMatrix#0" expanded="false" />
-            <element signature="e#2232#2233#0" expanded="true" />
-            <element signature="e#2256#2257#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Maths/Matrices/Matrix.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="432">
-          <caret line="9" column="23" lean-forward="false" selection-start-line="9" selection-start-column="23" selection-end-line="9" selection-end-column="23" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/Test/Test.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="753">
-          <caret line="45" column="10" lean-forward="false" selection-start-line="45" selection-start-column="10" selection-end-line="45" selection-end-column="10" />
-          <folding>
-            <element signature="imports" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/Maths/Matrices/AbstractMatrix.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="369">
-          <caret line="434" column="50" lean-forward="true" selection-start-line="434" selection-start-column="50" selection-end-line="434" selection-end-column="50" />
+        <state relative-caret-position="513">
+          <caret line="528" column="0" lean-forward="false" selection-start-line="528" selection-start-column="0" selection-end-line="528" selection-end-column="0" />
           <folding>
             <element signature="class#Type#0;class#AbstractMatrix#0" expanded="false" />
             <element signature="method#AbstractMatrix#0;class#AbstractMatrix#0" expanded="false" />
@@ -805,7 +794,7 @@
             <element signature="method#fillRow#0;class#AbstractMatrix#0" expanded="false" />
             <element signature="docComment;method#reorderPivotRows#0;class#AbstractMatrix#0" expanded="false" />
             <element signature="method#reorderPivotRows#0;class#AbstractMatrix#0" expanded="false" />
-            <element signature="e#9166#9211#0" expanded="false" />
+            <element signature="e#9030#9075#0" expanded="false" />
             <element signature="method#getFirstNonZeroElement#0;class#AbstractMatrix#0" expanded="false" />
             <element signature="docComment;method#swapTwoRows#0;class#AbstractMatrix#0" expanded="false" />
             <element signature="method#swapTwoRows#0;class#AbstractMatrix#0" expanded="false" />
@@ -816,10 +805,53 @@
             <element signature="method#getColumnProduct#0;class#AbstractMatrix#0" expanded="false" />
             <element signature="method#getMatrixElementsSum#0;class#AbstractMatrix#0" expanded="false" />
             <element signature="method#getRowElements#0;class#AbstractMatrix#0" expanded="false" />
-            <element signature="method#getColumnElements#0;class#AbstractMatrix#0" expanded="false" />
             <element signature="method#getRowElements#1;class#AbstractMatrix#0" expanded="false" />
-            <element signature="method#getColumnElements#1;class#AbstractMatrix#0" expanded="false" />
             <element signature="method#isNullRow#0;class#AbstractMatrix#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Maths/Matrices/MatrixOperations.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="719">
+          <caret line="69" column="62" lean-forward="false" selection-start-line="69" selection-start-column="62" selection-end-line="69" selection-end-column="74" />
+          <folding>
+            <element signature="method#MatrixOperations#0;class#MatrixOperations#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Test/Test.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="720">
+          <caret line="45" column="59" lean-forward="true" selection-start-line="45" selection-start-column="59" selection-end-line="45" selection-end-column="59" />
+          <folding>
+            <element signature="imports" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Maths/Matrices/Matrix.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="432">
+          <caret line="9" column="23" lean-forward="false" selection-start-line="9" selection-start-column="23" selection-end-line="9" selection-end-column="23" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Maths/Matrices/SquareMatrix.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="960">
+          <caret line="110" column="20" lean-forward="false" selection-start-line="110" selection-start-column="20" selection-end-line="110" selection-end-column="20" />
+          <folding>
+            <element signature="method#SquareMatrix#0;class#SquareMatrix#0" expanded="false" />
+            <element signature="method#SquareMatrix#1;class#SquareMatrix#0" expanded="false" />
+            <element signature="docComment;method#det#0;class#SquareMatrix#0" expanded="false" />
+            <element signature="method#det#0;class#SquareMatrix#0" expanded="false" />
+            <element signature="docComment;method#eig#0;class#SquareMatrix#0" expanded="false" />
+            <element signature="method#eig#0;class#SquareMatrix#0" expanded="false" />
+            <element signature="e#2232#2233#0" expanded="true" />
+            <element signature="e#2256#2257#0" expanded="true" />
           </folding>
         </state>
       </provider>
