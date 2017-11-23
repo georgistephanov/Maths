@@ -10,7 +10,6 @@ import java.util.regex.Pattern;
 public enum Equations implements Equation {
 	/**
 	 * Solves quadratic equation in the form: ax^2 + bx + c
-	 * @throws IllegalArgumentException if the expression passed as a parameter is not in the correct format
 	 */
 	QUADRATIC 	(expression -> {
 		double [] roots;
@@ -63,7 +62,7 @@ public enum Equations implements Equation {
 		}
 
 		if (a != 0 && b != 0 && c == 0) {
-			// Equation in the form ax^2 + bx = 0 which goes to x(ax + b) = 0
+			// Equation in the form ax^2 + bx = 0 --> x(ax + b) = 0
 			roots = new double[2];
 			roots[0] = 0;
 			roots[1] = -b / a;

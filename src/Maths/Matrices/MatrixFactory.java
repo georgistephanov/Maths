@@ -37,4 +37,18 @@ public class MatrixFactory {
 		return new SquareMatrix(size);
 	}
 
+	/**
+	 * Creates and returns an identity matrix
+	 * @param size of the matrix
+	 * @return the newly created identity matrix
+	 * @throws IllegalArgumentException if the size is less than 1
+			*/
+	public static IdentityMatrix createIdentityMatrix(int size) {
+		if (size < 1) {
+			throw new IllegalArgumentException("Illegal size of a matrix");
+		}
+
+		return new IdentityMatrix(size);
+	}
+
 }

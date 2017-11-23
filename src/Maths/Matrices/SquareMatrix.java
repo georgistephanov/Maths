@@ -63,7 +63,8 @@ public class SquareMatrix extends AbstractMatrix {
 		}
 		else if (rows == 2) {
 			// det(A - lambda*I) = 0 which leads to a quadratic equation
-			String equation = "x^2";
+			StringBuilder equation = new StringBuilder();
+			equation.append("x^2");
 
 			// this is the coefficient in front of the x
 			double b = -(matrix[0][0] + matrix[1][1]);
@@ -72,32 +73,37 @@ public class SquareMatrix extends AbstractMatrix {
 			double c = matrix[0][0] * matrix[1][1] - matrix[0][1] * matrix[1][0];
 
 			if (b >= 0) {
-				equation += "+";
+				equation.append("+");
 			}
 			if (Math.floor(b) == b) {
-				equation += (int) b + "x";
+				equation.append((int) b);
 			} else {
-				equation += b;
+				equation.append(b);
 			}
+			equation.append("x");
 
 			if (c != 0) {
 				if (c > 0) {
-					equation += "+";
+					equation.append("+");
 				}
 				if (Math.floor(c) == c) {
-					equation += (int) c;
+					equation.append((int) c);
 				} else {
-					equation += c;
+					equation.append(c);
 				}
 			}
 
 			System.out.println(equation);
 
-			eigenvalues = Equations.QUADRATIC.apply(equation);
+			eigenvalues = Equations.QUADRATIC.apply(equation.toString());
 			System.out.println("lambda1=" + eigenvalues[0] + "\tlambda2=" + eigenvalues[1] );
 		}
 
 		return eigenvalues;
+	}
+
+	public boolean hasInverse() {
+		return det() != 0;
 	}
 
 }

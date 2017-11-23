@@ -1,10 +1,7 @@
 package Test;
 
 import Maths.*;
-import Maths.Matrices.Matrix;
-import Maths.Matrices.MatrixFactory;
-import Maths.Matrices.MatrixOperation;
-import Maths.Matrices.SquareMatrix;
+import Maths.Matrices.*;
 
 public class Test {
 	public static void execute() {
@@ -12,7 +9,7 @@ public class Test {
 		double y = 2;
 		//testBasicOperations(BasicOperation.class, x, y);
 
-		Matrix a = MatrixFactory.createMatrix(2, 2);
+		Matrix a = MatrixFactory.createMatrix(5, 5);
 
 		double elem1[] = {
 				0, 1, 1, 0, 3,
@@ -37,17 +34,12 @@ public class Test {
 		};
 
 		a.populateMatrix(elem1);
-		a.calculateUpperTriangular();
 
-		System.out.println(a);
-		a.printUpperTriangular();
+		IdentityMatrix I = MatrixFactory.createIdentityMatrix(5);
 
-		SquareMatrix s = MatrixFactory.createSquareMatrix(2);
-		s.populateMatrix(elem1);
-		s.eig();
+		Matrix m = MatrixOperations.MULTIPLY.apply(I, I);
+		System.out.println(m.toString());
 
-		Matrix b = MatrixFactory.createMatrix(2, 2);
-		//testMatrixOperations(MatrixOperations.class, a, b);
 	}
 
 	/**
