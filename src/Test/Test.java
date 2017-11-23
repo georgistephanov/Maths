@@ -9,7 +9,14 @@ public class Test {
 		double y = 2;
 		//testBasicOperations(BasicOperation.class, x, y);
 
-		Matrix a = MatrixFactory.createMatrix(5, 5);
+		Matrix a = MatrixFactory.createMatrix(3, 4);
+
+		double elem[] = {
+				1, 2, 3,
+				4, 5, 6,
+				7, 8, 9,
+				10, 11, 12
+		};
 
 		double elem1[] = {
 				0, 1, 1, 0, 3,
@@ -33,12 +40,10 @@ public class Test {
 				2, 4, 7
 		};
 
-		a.populateMatrix(elem1);
+		a.populateMatrix(elem);
 
-		IdentityMatrix I = MatrixFactory.createIdentityMatrix(5);
-
-		Matrix m = MatrixOperations.MULTIPLY.apply(I, I);
-		System.out.println(m.toString());
+		Matrix t = a.transpose();
+		//System.out.println(t.toString());
 
 	}
 

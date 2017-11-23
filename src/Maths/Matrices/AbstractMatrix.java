@@ -14,6 +14,7 @@ abstract class AbstractMatrix implements Matrix {
 	int columns;
 	int pivots = -1;
 	double [][] matrix;
+	double [][] transpose;
 	double [][] upperTriangular;
 	private double [][] reducedRowEchelon;
 
@@ -100,6 +101,25 @@ abstract class AbstractMatrix implements Matrix {
 	/* ======== INTERFACE METHODS ======== */
 	public int getRows() { return rows; }
 	public int getColumns() { return columns; }
+	public Matrix transpose() {
+		transpose = new double[columns][rows];
+		double [] elements = new double[rows * columns];
+		int elementIndex = 0;
+
+		for (int col = 0; col < columns; col++) {
+			for (int row = 0; row < rows; row++) {
+				transpose[col][row] = matrix[row][col];
+				elements[elementIndex++] = matrix[row][col];
+			}
+		}
+
+		printMatrix(transpose);
+
+		Matrix transpose = MatrixFactory.createMatrix(columns, rows);
+		transpose.populateMatrix(elements);
+
+		return transpose;
+	}
 
 	/**
 	 * Returns the element at the (row, col) position of the matrix
@@ -412,8 +432,8 @@ abstract class AbstractMatrix implements Matrix {
 	private void printMatrix(double [][] m) {
 		assert m != null && m.length > 0;
 
-		for (int row = 0; row < rows; row++) {
-			for (int col = 0; col < columns; col++) {
+		for (int row = 0; row < m.length; row++) {
+			for (int col = 0; col < m[0].length; col++) {
 
 				// This checks if the number is a whole number. If so -> print it without the decimal place
 				if ( m[row][col] == Math.floor(m[row][col]) ) {

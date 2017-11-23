@@ -7,6 +7,7 @@ public interface Matrix {
 	int getColumns();
 	int getRows();
 	double at(int row, int col);
+	Matrix transpose();
 
 	int getNumberOfPivots();
 	ArrayList<Double> getRowElements(int row);
