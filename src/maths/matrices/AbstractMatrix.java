@@ -177,8 +177,10 @@ abstract class AbstractMatrix implements Matrix {
 	}
 	public void printReducedRowEchelonForm() {
 		if (reducedRowEchelon == null) {
-			printMatrix(reducedRowEchelon);
+			calculateReducedRowEchelonForm();
 		}
+
+		printMatrix(reducedRowEchelon);
 	}
 
 
@@ -262,6 +264,62 @@ abstract class AbstractMatrix implements Matrix {
 				pivots++;
 			}
 		}
+	}
+
+	public void calculateReducedRowEchelonForm() {
+		assert matrix.length > 0;
+
+		if (upperTriangular == null) {
+			calculateUpperTriangular();
+		}
+
+		reducedRowEchelon = new double[rows][columns];
+
+		// Copy the upper triangular matrix
+		{
+			for (int row = 0; row < rows; row++) {
+				reducedRowEchelon[row] = upperTriangular[row].clone();
+			}
+		}
+
+		calculateReducedRowEchelonMatrix();
+	}
+	private void calculateReducedRowEchelonMatrix() {
+
+		for ( int row = rows - 1; row >= 0; row-- ) {
+			int pivotElementColNumber = 0;
+
+			if ( !isNullRow(reducedRowEchelon, row) ) {
+				// Find the pivot element and it's column
+				while ( reducedRowEchelon[row][pivotElementColNumber] == 0 && pivotElementColNumber < columns ) {
+					pivotElementColNumber++;
+				}
+
+				// Make all elements above the pivot element of the current row zeros
+				for ( int i = row - 1; i >= 0; i-- ) {
+					if ( reducedRowEchelon[row][pivotElementColNumber] != 0 ) {
+						ArrayList<Double> currentRow = getRowElements(reducedRowEchelon, i);
+						ArrayList<Double> pivotRow = getRowElements(reducedRowEchelon, row);
+						double multiplierPivotRow = reducedRowEchelon[i][pivotElementColNumber] / reducedRowEchelon[row][pivotElementColNumber];
+
+						// Do the row elimination from the pivot element onwards, as the previous elements of the pivot row are zeros
+						for ( int col = pivotElementColNumber; col < columns; col++ ) {
+							// Subtract the pivot row element multiplied by the correct multiplier from the current row element
+							reducedRowEchelon[i][col] -= ( reducedRowEchelon[row][col] * multiplierPivotRow );
+						}
+
+					}
+					else {
+						// Skip this row as the element is already zero
+					}
+				}
+
+			}
+			else {
+				// null row
+			}
+		}
+
 	}
 
 	/**

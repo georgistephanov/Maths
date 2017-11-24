@@ -12,11 +12,11 @@ public interface Matrix {
 	int getRank();
 	ArrayList<Double> getRowElements(int row);
 	ArrayList<Double> getColumnElements(int column);
-	// boolean hasInverse();
 
 	Matrix add(Matrix a, Matrix b);
 	Matrix multiply(Matrix a, Matrix b);
 	void calculateUpperTriangular();
+	void calculateReducedRowEchelonForm();
 
 	void printUpperTriangular();
 	void printReducedRowEchelonForm();

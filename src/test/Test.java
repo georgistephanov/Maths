@@ -9,7 +9,7 @@ public class Test {
 		double y = 2;
 		//testBasicOperations(BasicOperation.class, x, y);
 
-		Matrix a = MatrixFactory.createMatrix(3, 3);
+		Matrix a = MatrixFactory.createMatrix(5, 5);
 
 		double elem[] = {
 				1, 2, 3,
@@ -39,8 +39,10 @@ public class Test {
 				2, 4, 7
 		};
 
-		a.populateMatrix(elem);
+		a.populateMatrix(elem1);
 		a.printUpperTriangular();
+		System.out.println();
+		a.printReducedRowEchelonForm();
 
 	}
 
