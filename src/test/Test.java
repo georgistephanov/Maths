@@ -9,7 +9,7 @@ public class Test {
 		double y = 2;
 		//testBasicOperations(BasicOperation.class, x, y);
 
-		Matrix a = MatrixFactory.createMatrix(5, 5);
+		Matrix a = MatrixFactory.createMatrix(4, 5);
 
 		double elem[] = {
 				1, 2, 3,
@@ -42,8 +42,21 @@ public class Test {
 		a.populateMatrix(elem1);
 		a.printUpperTriangular();
 		System.out.println();
-		a.printReducedRowEchelonForm();
 
+		SquareMatrix symm = (SquareMatrix) MatrixFactory.createSquareMatrix(4);
+		double [] symmetric = {
+				1, 1, 1, 1,
+				1, 2, 3, 4,
+				1, 3, 6, 10,
+				1, 4, 10, 20
+		};
+
+		symm.populateMatrix(symmetric);
+		symm.printUpperTriangular();
+		System.out.println("\nHas lower triangular? " + symm.hasLowerTriangular());
+		symm.printLowerTriangular();
+
+		System.out.println("\nA = LU? " + symm.equals(MatrixOperations.MULTIPLY.apply(symm.getLowerTriangular(), symm.getUpperTriangular())));
 	}
 
 	/**

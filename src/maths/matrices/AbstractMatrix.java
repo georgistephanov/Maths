@@ -12,10 +12,11 @@ abstract class AbstractMatrix implements Matrix {
 
 	int rows;
 	int columns;
-	int pivots = -1;
+	private int pivots = -1;
 	double [][] matrix;
 	double [][] upperTriangular;
 	private double [][] reducedRowEchelon;
+	boolean rowExchangesPerformed = false;
 
 	enum Type {
 		SQUARE, TALL, WIDE
@@ -98,7 +99,50 @@ abstract class AbstractMatrix implements Matrix {
 
 
 	/* ======== INTERFACE METHODS ======== */
+
+	/**
+	 * This method populates the matrix by an array of given element values.
+	 * If the array's length is less than the size of the matrix, the rest
+	 * of the elements are automatically filled with zeros.
+	 * @param elements -> array of integers with the values in a following
+	 *                    order going row by row
+	 */
+	public void populateMatrix(double [] elements) {
+		assert elements != null && elements.length > 0;
+
+		int elementIndex = 0;
+
+		if (elements.length >= (rows * columns) - 1) {
+
+			for (int i = 0; i < rows; i++) {
+				for (int j = 0; j < columns; j++) {
+					matrix[i][j] = elements[elementIndex++];
+				}
+			}
+
+		} else {
+
+			for (int i = 0; i < rows; i++) {
+				for (int j = 0; j < columns; j++) {
+					if (elementIndex < elements.length) {
+						matrix[i][j] = elements[elementIndex++];
+					} else {
+						matrix[i][j] = 0;
+					}
+				}
+			}
+
+		}
+	}
+
+	/**
+	 * @return the number of rows of the matrix
+	 */
 	public int getRows() { return rows; }
+
+	/**
+	 * @return the number of columns of the matrix
+	 */
 	public int getColumns() { return columns; }
 
 	/**
@@ -168,6 +212,10 @@ abstract class AbstractMatrix implements Matrix {
 
 		return MatrixOperations.MULTIPLY.apply(a, b);
 	}
+
+	/**
+	 * Prints the upper triangular matrix
+	 */
 	public void printUpperTriangular() {
 		if (upperTriangular == null) {
 			calculateUpperTriangular();
@@ -175,6 +223,10 @@ abstract class AbstractMatrix implements Matrix {
 
 		printMatrix(upperTriangular);
 	}
+
+	/**
+	 * Prints the reduced row echelon form of the matrix
+	 */
 	public void printReducedRowEchelonForm() {
 		if (reducedRowEchelon == null) {
 			calculateReducedRowEchelonForm();
@@ -182,12 +234,6 @@ abstract class AbstractMatrix implements Matrix {
 
 		printMatrix(reducedRowEchelon);
 	}
-
-
-
-	/* ======== ABSTRACT METHODS ======== */
-	//public abstract void calculateReducedRowEchelonFormMatrix();
-
 
 	/**
 	 * Calculates the upper triangular matrix via elimination
@@ -208,64 +254,11 @@ abstract class AbstractMatrix implements Matrix {
 
 		calculateUpperTriangularMatrix();
 	}
-	private void calculateUpperTriangularMatrix() {
 
-		for (int column = 0; column < columns; column++) {
-			// Reorder the pivot rows if necessary on every level of elimination
-			reorderPivotRows(upperTriangular);
-
-			// Make all zeros under the current column
-			for (int row = column + 1; row < rows; row++) {
-
-				// If the current element of the pivot row is 0 -> find the pivot variable
-				int pivotColumn = column;
-				while ( pivotColumn < columns && upperTriangular[column][pivotColumn] == 0 ) {
-					pivotColumn++;
-				}
-
-				if (pivotColumn == columns) {
-					// Zero row
-					continue;
-				}
-
-				ArrayList<Double> pivotRow = getRowElements(upperTriangular, column);
-				ArrayList<Double> currentRow = getRowElements(upperTriangular, row);
-				ArrayList<Double> newRow = new ArrayList<>();
-
-				// Get the correct row multiplier
-				double multiplierPivotRow = upperTriangular[row][pivotColumn] / getFirstNonZeroElement(pivotRow);
-
-				for (int i = 0; i < columns; i++) {
-					double currentRowElement = currentRow.get(i);
-					double pivotRowElement = pivotRow.get(i);
-
-					// If both elements are zero -> no need to make calculations
-					if (currentRowElement == 0 && pivotRowElement == 0) {
-						newRow.add((double) 0);
-					} else {
-						newRow.add( currentRowElement - pivotRowElement * multiplierPivotRow );
-					}
-				}
-
-				// Fill the current row with the newly calculated row
-				fillRow(upperTriangular, row, newRow);
-			}
-		}
-
-		findNumberOfPivots();
-	}
-	private void findNumberOfPivots() {
-		assert upperTriangular != null;
-
-		pivots = 0;
-
-		for (int row = 0; row < rows; row++) {
-			if ( !(isNullRow(upperTriangular, row)) ) {
-				pivots++;
-			}
-		}
-	}
-
+	/**
+	 * Calculates the reduced row echelon form of the matrix via
+	 * further elimination of the upper triangular matrix
+	 */
 	public void calculateReducedRowEchelonForm() {
 		assert matrix.length > 0;
 
@@ -284,95 +277,22 @@ abstract class AbstractMatrix implements Matrix {
 
 		calculateReducedRowEchelonMatrix();
 	}
-	private void calculateReducedRowEchelonMatrix() {
 
-		for ( int row = rows - 1; row >= 0; row-- ) {
-			int pivotElementColNumber = 0;
 
-			if ( !isNullRow(reducedRowEchelon, row) ) {
-				// Find the pivot element and it's column
-				while ( reducedRowEchelon[row][pivotElementColNumber] == 0 && pivotElementColNumber < columns ) {
-					pivotElementColNumber++;
-				}
 
-				// Make all elements above the pivot element of the current row zeros
-				for ( int i = row - 1; i >= 0; i-- ) {
-					if ( reducedRowEchelon[row][pivotElementColNumber] != 0 ) {
-						ArrayList<Double> currentRow = getRowElements(reducedRowEchelon, i);
-						ArrayList<Double> pivotRow = getRowElements(reducedRowEchelon, row);
-						double multiplierPivotRow = reducedRowEchelon[i][pivotElementColNumber] / reducedRowEchelon[row][pivotElementColNumber];
-
-						// Do the row elimination from the pivot element onwards, as the previous elements of the pivot row are zeros
-						for ( int col = pivotElementColNumber; col < columns; col++ ) {
-							// Subtract the pivot row element multiplied by the correct multiplier from the current row element
-							reducedRowEchelon[i][col] -= ( reducedRowEchelon[row][col] * multiplierPivotRow );
-						}
-
-					}
-					else {
-						// Skip this row as the element is already zero
-					}
-				}
-
-			}
-			else {
-				// null row
-			}
-		}
-
-	}
-
+	/* =========== Package-private methods =========== */
 	/**
-	 * This method populates the matrix by an array of given element values.
-	 * If the array's length is less than the size of the matrix, the rest
-	 * of the elements are automatically filled with zeros.
-	 * @param elements -> array of integers with the values in a following
-	 *                    order going row by row
+	 * Finds and stores the number of pivots of the matrix
+	 * after elimination
 	 */
-	public void populateMatrix(double [] elements) {
-		assert elements != null && elements.length > 0;
+	void findNumberOfPivots() {
+		assert upperTriangular != null;
 
-		int elementIndex = 0;
+		pivots = 0;
 
-		if (elements.length >= (rows * columns) - 1) {
-
-			for (int i = 0; i < rows; i++) {
-				for (int j = 0; j < columns; j++) {
-					matrix[i][j] = elements[elementIndex++];
-				}
-			}
-
-		} else {
-
-			for (int i = 0; i < rows; i++) {
-				for (int j = 0; j < columns; j++) {
-					if (elementIndex < elements.length) {
-						matrix[i][j] = elements[elementIndex++];
-					} else {
-						matrix[i][j] = 0;
-					}
-				}
-			}
-
-		}
-	}
-
-	/**
-	 * This method populates the matrix elements with random values between
-	 * the MIN_RANDOM_ELEMENT_VALUE and MAX_RANDOM_ELEMENT_VALUE constants
-	 */
-	private void populateMatrixRandomly() {
-		assert matrix != null;
-
-		Random rand = new Random();
-
-		for (int i = 0; i < rows; i++) {
-			for (int j = 0; j < columns; j++) {
-				if (NEGATIVE_RANDOM_ELEMENTS_ALLOWED) {
-					matrix[i][j] = rand.nextInt(MAX_RANDOM_ELEMENT_VALUE - MIN_RANDOM_ELEMENT_VALUE) + MIN_RANDOM_ELEMENT_VALUE;
-				} else {
-					matrix[i][j] = rand.nextInt(MAX_RANDOM_ELEMENT_VALUE);
-				}
+		for (int row = 0; row < rows; row++) {
+			if ( !(isNullRow(upperTriangular, row)) ) {
+				pivots++;
 			}
 		}
 	}
@@ -384,7 +304,7 @@ abstract class AbstractMatrix implements Matrix {
 	 * @param row -> the number of the row to be filled
 	 * @param elements -> an ArrayList of integers with which to fill the row of the matrix
 	 */
-	private void fillRow(double [][] m, int row, ArrayList<Double> elements) {
+	void fillRow(double [][] m, int row, ArrayList<Double> elements) {
 		assert m != null;
 		assert row > 0 && row < rows;
 		assert elements != null;
@@ -415,7 +335,7 @@ abstract class AbstractMatrix implements Matrix {
 	 *
 	 * @param m: the matrix to be manipulated
 	 */
-	private void reorderPivotRows(double [][] m) {
+	void reorderPivotRows(double [][] m) {
 		assert m != null;
 		assert m.length != 0;
 
@@ -446,6 +366,8 @@ abstract class AbstractMatrix implements Matrix {
 			}
 
 			if ( row != longestRow ) {
+				rowExchangesPerformed = true;
+
 				swapTwoRows(m, row, longestRow);
 
 				// Swap the values in the array we're looking
@@ -455,7 +377,13 @@ abstract class AbstractMatrix implements Matrix {
 			}
 		}
 	}
-	private double getFirstNonZeroElement(ArrayList<Double> arr) {
+
+	/**
+	 * Returns the first non zero element of a given array
+	 * @param arr from which to be taken the first non zero element
+	 * @return the first non zero element of the array
+	 */
+	double getFirstNonZeroElement(ArrayList<Double> arr) {
 		assert arr != null && !arr.isEmpty();
 
 		for (double a : arr) {
@@ -467,29 +395,12 @@ abstract class AbstractMatrix implements Matrix {
 	}
 
 	/**
-	 *
-	 * @param m: the matrix to be manipulated
-	 * @param row1, row2: the rows to be swapped
-	 */
-	private void swapTwoRows(double [][] m, int row1, int row2) {
-		assert m.length > 0 && row1 < m.length && row2 < m.length;
-
-		if ( row1 != row2 ) {
-			for (int col = 0; col < m[0].length; col++) {
-				double temp = m[row1][col];
-				m[row1][col] = m[row2][col];
-				m[row2][col] = temp;
-			}
-		}
-	}
-
-	/**
 	 * Prints any matrix in the format in which the regular matrix is being printed.
 	 * Refer to the toString() method.
 	 *
 	 * @param m: the matrix which is to be printed
 	 */
-	private void printMatrix(double [][] m) {
+	void printMatrix(double [][] m) {
 		assert m != null && m.length > 0;
 
 		for (int row = 0; row < rows; row++) {
@@ -507,7 +418,15 @@ abstract class AbstractMatrix implements Matrix {
 	}
 
 
+
+
 	/* ======== STATIC METHODS ======== */
+	/**
+	 * Checks whether two matrices are of the same size (equal number of rows and columns)
+	 * @param a matrix
+	 * @param b matrix
+	 * @return true if the two matrices passed as a parameters are of the same size
+	 */
 	static boolean areSameSize(Matrix a, Matrix b) {
 		assert a != null;
 		assert b != null;
@@ -515,6 +434,14 @@ abstract class AbstractMatrix implements Matrix {
 		return ( a.getRows() == b.getRows()
 				&& a.getColumns() == b.getColumns());
 	}
+
+	/**
+	 * Checks whether two matrices can be multiplied (i.e. the number of columns
+	 * of the first matrix is equal to the number of rows of the second)
+	 * @param a matrix
+	 * @param b matrix
+	 * @return true if the number of columns of the first matrix equals the number of rows of the second one
+	 */
 	static boolean canBeMultiplied(Matrix a, Matrix b) {
 		assert a != null;
 		assert b != null;
@@ -576,7 +503,7 @@ abstract class AbstractMatrix implements Matrix {
 
 		return getColumnElements(matrix, column);
 	}
-	private ArrayList<Double> getRowElements(double [][] matrix, int row) {
+	ArrayList<Double> getRowElements(double [][] matrix, int row) {
 		assert matrix != null && matrix.length > 0;
 		assert row >= 0 && row < rows;
 
@@ -588,7 +515,7 @@ abstract class AbstractMatrix implements Matrix {
 
 		return rowElements;
 	}
-	private ArrayList<Double> getColumnElements(double [][] matrix, int column) {
+	ArrayList<Double> getColumnElements(double [][] matrix, int column) {
 		assert matrix != null && matrix.length > 0;
 		assert column >= 0 && column < columns;
 
@@ -603,6 +530,142 @@ abstract class AbstractMatrix implements Matrix {
 
 
 	/* ======== HELPER METHODS ======== */
+	/**
+	 * Helper method which does the actual calculations for the
+	 * calculateUpperTriangular() method
+	 */
+	private void calculateUpperTriangularMatrix() {
+
+		for (int column = 0; column < columns; column++) {
+			// Reorder the pivot rows if necessary on every level of elimination
+			reorderPivotRows(upperTriangular);
+
+			// Make all zeros under the current column
+			for (int row = column + 1; row < rows; row++) {
+
+				// If the current element of the pivot row is 0 -> find the pivot variable
+				int pivotColumn = column;
+				while ( pivotColumn < columns && upperTriangular[column][pivotColumn] == 0 ) {
+					pivotColumn++;
+				}
+
+				if (pivotColumn == columns) {
+					// Zero row
+					continue;
+				}
+
+				ArrayList<Double> pivotRow = getRowElements(upperTriangular, column);
+				ArrayList<Double> currentRow = getRowElements(upperTriangular, row);
+				ArrayList<Double> newRow = new ArrayList<>();
+
+				// Get the correct row multiplier
+				double multiplierPivotRow = upperTriangular[row][pivotColumn] / getFirstNonZeroElement(pivotRow);
+
+				for (int i = 0; i < columns; i++) {
+					double currentRowElement = currentRow.get(i);
+					double pivotRowElement = pivotRow.get(i);
+
+					// If both elements are zero -> no need to make calculations
+					if (currentRowElement == 0 && pivotRowElement == 0) {
+						newRow.add((double) 0);
+					} else {
+						newRow.add( currentRowElement - pivotRowElement * multiplierPivotRow );
+					}
+				}
+
+				// Fill the current row with the newly calculated row
+				fillRow(upperTriangular, row, newRow);
+			}
+		}
+
+		findNumberOfPivots();
+	}
+
+	/**
+	 * Helper method which does the actual calculations for the
+	 * calculateReducedRowEchelonForm() method.
+	 */
+	private void calculateReducedRowEchelonMatrix() {
+
+		for ( int row = rows - 1; row >= 0; row-- ) {
+			int pivotElementColNumber = 0;
+
+			if ( !isNullRow(reducedRowEchelon, row) ) {
+				// Find the pivot element and it's column
+				while ( reducedRowEchelon[row][pivotElementColNumber] == 0 && pivotElementColNumber < columns ) {
+					pivotElementColNumber++;
+				}
+
+				// Make all elements above the pivot element of the current row zeros
+				for ( int i = row - 1; i >= 0; i-- ) {
+					if ( reducedRowEchelon[row][pivotElementColNumber] != 0 ) {
+						ArrayList<Double> currentRow = getRowElements(reducedRowEchelon, i);
+						ArrayList<Double> pivotRow = getRowElements(reducedRowEchelon, row);
+						double multiplierPivotRow = reducedRowEchelon[i][pivotElementColNumber] / reducedRowEchelon[row][pivotElementColNumber];
+
+						// Do the row elimination from the pivot element onwards, as the previous elements of the pivot row are zeros
+						for ( int col = pivotElementColNumber; col < columns; col++ ) {
+							// Subtract the pivot row element multiplied by the correct multiplier from the current row element
+							reducedRowEchelon[i][col] -= ( reducedRowEchelon[row][col] * multiplierPivotRow );
+						}
+
+					}
+					else {
+						// Skip this row as the element is already zero
+					}
+				}
+
+			}
+			else {
+				// null row
+			}
+		}
+
+	}
+
+	/**
+	 * This method populates the matrix elements with random values between
+	 * the MIN_RANDOM_ELEMENT_VALUE and MAX_RANDOM_ELEMENT_VALUE constants
+	 */
+	private void populateMatrixRandomly() {
+		assert matrix != null;
+
+		Random rand = new Random();
+
+		for (int i = 0; i < rows; i++) {
+			for (int j = 0; j < columns; j++) {
+				if (NEGATIVE_RANDOM_ELEMENTS_ALLOWED) {
+					matrix[i][j] = rand.nextInt(MAX_RANDOM_ELEMENT_VALUE - MIN_RANDOM_ELEMENT_VALUE) + MIN_RANDOM_ELEMENT_VALUE;
+				} else {
+					matrix[i][j] = rand.nextInt(MAX_RANDOM_ELEMENT_VALUE);
+				}
+			}
+		}
+	}
+
+	/**
+	 *
+	 * @param m: the matrix to be manipulated
+	 * @param row1, row2: the rows to be swapped
+	 */
+	private void swapTwoRows(double [][] m, int row1, int row2) {
+		assert m.length > 0 && row1 < m.length && row2 < m.length;
+
+		if ( row1 != row2 ) {
+			for (int col = 0; col < m[0].length; col++) {
+				double temp = m[row1][col];
+				m[row1][col] = m[row2][col];
+				m[row2][col] = temp;
+			}
+		}
+	}
+
+	/**
+	 * Checks whether a matrix row is null (all zeros)
+	 * @param m matrix which row to check
+	 * @param row the row number to be checked
+	 * @return true if the row consists only zeros
+	 */
 	private boolean isNullRow(double [][] m, int row) {
 		assert m != null && m.length > 0;
 		assert row >= 0 && row < rows;
