@@ -13,8 +13,8 @@ public interface Matrix {
 	ArrayList<Double> getRowElements(int row);
 	ArrayList<Double> getColumnElements(int column);
 
-	Matrix add(Matrix a, Matrix b);
-	Matrix multiply(Matrix a, Matrix b);
+	Matrix add(Matrix b);
+	Matrix multiply(Matrix b);
 	void calculateUpperTriangular();
 	void calculateReducedRowEchelonForm();
 

@@ -10,7 +10,6 @@
  * @Started 13-Nov-2017, 22:30PM
  */
 
-
 package core;
 
 import test.Test;

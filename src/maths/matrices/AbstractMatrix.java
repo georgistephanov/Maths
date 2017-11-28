@@ -185,32 +185,30 @@ abstract class AbstractMatrix implements Matrix {
 	/**
 	 * Adds two matrices
 	 * @param a matrix
-	 * @param b matrix
 	 * @return the matrix produced from the addition
 	 * @throws NullPointerException if a or b are null
 	 * @throws IllegalArgumentException if the two matrices are not of the same size
 	 */
-	public Matrix add(Matrix a, Matrix b) {
-		if (areSameSize(a, b)) {
+	public Matrix add(Matrix a) {
+		if ( !(areSameSize(this, a)) ) {
 			throw new IllegalArgumentException("The matrices passed as parameters are not of the same size.");
 		}
 
-		return MatrixOperations.ADD.apply(a, b);
+		return MatrixOperations.ADD.apply(this, a);
 	}
 
 	/**
 	 * Multiplies two matrices
 	 * @param a matrix
-	 * @param b matrix
 	 * @return the matrix produced by the multiplication
 	 * @throws IllegalArgumentException if the matrices could not be legally multiplied
 	 */
-	public Matrix multiply(Matrix a, Matrix b) {
-		if ( !(canBeMultiplied(a, b)) ) {
+	public Matrix multiply(Matrix a) {
+		if ( !(canBeMultiplied(this, a)) ) {
 			throw new IllegalArgumentException("The matrices cannot be multiplied.");
 		}
 
-		return MatrixOperations.MULTIPLY.apply(a, b);
+		return MatrixOperations.MULTIPLY.apply(this, a);
 	}
 
 	/**
