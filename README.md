@@ -4,5 +4,5 @@ to study lots of maths at university. I will try to write functions for stuff I 
 my knowledge in the subject and at the same time practice some Java programming. In one of the most influential books I had read
 so far - "A Mind for Numbers", Barbara Oakley says that the fastest way to fully understand something is to teach it to someone who has 
 no knowledge of the subject (she uses a 5 year-old as an example). This is what I'm putting to practice here.
-<br>
+<br><br>
 @Started 13-Nov-2017
