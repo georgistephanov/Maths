@@ -73,9 +73,6 @@ public class AbstractMatrixTest {
 
 	@Test
 	public void multiply() throws Exception {
-		// 1  2  3  4
-		// 5  6  7  8
-		// 9  10 11 12
 		a.populateMatrix(elements);
 
 		Matrix c = MatrixFactory.createMatrix(4, 3);
@@ -99,23 +96,12 @@ public class AbstractMatrixTest {
 	}
 
 	@Test
-	public void areSameSize() throws Exception {
-	}
-
-	@Test
-	public void canBeMultiplied() throws Exception {
-	}
-
-	@Test
-	public void getRowProduct() throws Exception {
-	}
-
-	@Test
-	public void getColumnProduct() throws Exception {
-	}
-
-	@Test
 	public void getRank() throws Exception {
+		a.populateMatrix(elements);
+		b.populateMatrix(elements);
+
+		assertTrue(a.getRank() == 2);
+		assertTrue(b.getRank() == 2);
 	}
 
 }

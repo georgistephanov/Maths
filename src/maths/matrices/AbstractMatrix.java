@@ -450,7 +450,7 @@ abstract class AbstractMatrix implements Matrix {
 
 
 	/* ======== GETTERS ======== */
-	double getRowProduct(int row) {
+	public double getRowProduct(int row) {
 		assert row >= 0 && row < rows;
 
 		int product = 1;
@@ -461,7 +461,7 @@ abstract class AbstractMatrix implements Matrix {
 
 		return product;
 	}
-	double getColumnProduct(int column) {
+	public double getColumnProduct(int column) {
 		assert column >= 0 && column < columns;
 
 		int product = 1;
