@@ -5,24 +5,23 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 public class SquareMatrixTest {
-	ConcreteSquareMatrix a = MatrixFactory.createSquareMatrix(4);
-
-	double [] symmetric = {
-			1, 1, 1, 1,
-			1, 2, 3, 4,
-			1, 3, 6, 10,
-			1, 4, 10, 20
-	};
-
-	ConcreteSquareMatrix b = MatrixFactory.createSquareMatrix(3);
-
-	double elem[] = {
-			1, 2, 3,
-			0, 3, 4,
-			1, 4, 4
-	};
+	private ConcreteSquareMatrix a = MatrixFactory.createSquareMatrix(4);
+	private ConcreteSquareMatrix b = MatrixFactory.createSquareMatrix(3);
 
 	{
+		double [] symmetric = {
+				1, 1, 1, 1,
+				1, 2, 3, 4,
+				1, 3, 6, 10,
+				1, 4, 10, 20
+		};
+
+		double elem[] = {
+				1, 2, 3,
+				0, 3, 4,
+				1, 4, 4
+		};
+
 		a.populateMatrix(symmetric);
 		b.populateMatrix(elem);
 	}
@@ -60,10 +59,30 @@ public class SquareMatrixTest {
 
 	@Test
 	public void getLowerTriangular() throws Exception {
+		Matrix aLower = MatrixFactory.createSquareMatrix(4);
+		double [] elem = {
+				1, 0, 0, 0,
+				1, 1, 0, 0,
+				1, 2, 1, 0,
+				1, 3, 3, 1
+		};
+		aLower.populateMatrix(elem);
+
+		assertTrue(a.getLowerTriangular().equals(aLower));
 	}
 
 	@Test
 	public void getUpperTriangular() throws Exception {
+		Matrix aUpper = MatrixFactory.createSquareMatrix(4);
+		double [] elem = {
+				1, 1, 1, 1,
+				0, 1, 2, 3,
+				0, 0, 1, 3,
+				0, 0, 0, 1
+		};
+		aUpper.populateMatrix(elem);
+
+		assertTrue(a.getUpperTriangular().equals(aUpper));
 	}
 
 }

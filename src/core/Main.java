@@ -21,9 +21,7 @@ public class Main {
 						+ "\nWelcome to my maths playground!"
 						+ "\n===============================\n");
 
-		Test.execute();
-
-
+		
 		System.out.println("\n\n");
 	}
 }

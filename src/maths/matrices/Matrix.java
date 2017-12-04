@@ -13,9 +13,13 @@ public interface Matrix {
 	ArrayList<Double> getRowElements(int row);
 	ArrayList<Double> getColumnElements(int column);
 
-	Matrix add(Matrix b);
-	Matrix multiply(Matrix b);
-	void calculateUpperTriangular();
+	boolean isOfSameSize(Matrix a);
+	boolean canBeMultiplied(Matrix a);
+	Matrix add(Matrix a);
+	Matrix subtract(Matrix a);
+	Matrix multiply(Matrix a);
+
+	void calculateUpperAndLowerTriangular();
 	void calculateReducedRowEchelonForm();
 
 	void printUpperTriangular();

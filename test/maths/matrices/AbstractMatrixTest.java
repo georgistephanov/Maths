@@ -49,6 +49,22 @@ public class AbstractMatrixTest {
 	}
 
 	@Test
+	public void isOfSameSize() throws Exception {
+		Matrix c = MatrixFactory.createMatrix(3, 4);
+
+		assertFalse(a.isOfSameSize(b));
+		assertTrue(a.isOfSameSize(c));
+	}
+
+	@Test
+	public void canBeMultiplied() throws Exception {
+		Matrix c = MatrixFactory.createMatrix(3, 4);
+
+		assertTrue(a.canBeMultiplied(b));
+		assertFalse(a.canBeMultiplied(c));
+	}
+
+	@Test
 	public void add() throws Exception {
 		a.populateMatrix(elements);
 
@@ -69,6 +85,29 @@ public class AbstractMatrixTest {
 		answer.populateMatrix(answ);
 
 		assertTrue(a.add(c).equals(answer));
+	}
+
+	@Test
+	public void subtract() throws Exception {
+		a.populateMatrix(elements);
+
+		Matrix c = MatrixFactory.createMatrix(3, 4);
+		double [] elem = {
+				1, 2, 3, 5,
+				6, 7, 8, 11,
+				0, 4, 5, -3
+		};
+		c.populateMatrix(elem);
+
+		Matrix answer = MatrixFactory.createMatrix(3, 4);
+		double [] answ = {
+				0, 0, 0, -1,
+				-1, -1, -1, -3,
+				9, 6, 6, 15
+		};
+		answer.populateMatrix(answ);
+
+		assertTrue(a.subtract(c).equals(answer));
 	}
 
 	@Test

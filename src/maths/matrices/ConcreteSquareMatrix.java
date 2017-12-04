@@ -21,6 +21,30 @@ public class ConcreteSquareMatrix extends AbstractMatrix implements SquareMatrix
 	}
 
 	/**
+	 * Calculates the upper triangular matrix via elimination
+	 * and keeps the correct steps taken in the lower triangular
+	 * matrix.
+	 */
+	@Override
+	public void calculateUpperAndLowerTriangular() {
+		assert matrix.length > 0;
+
+		if (upperTriangular == null) {
+			upperTriangular = new double[rows][columns];
+			lowerTriangular = getIdentityMatrix(rows);
+		}
+
+		// Copy the original matrix
+		{
+			for (int row = 0; row < rows; row++) {
+				upperTriangular[row] = matrix[row].clone();
+			}
+		}
+
+		calculateUpperAndLowerTriangularMatrices();
+	}
+
+	/**
 	 * Calculates the determinant of the matrix.
 	 */
 	public double det() {
@@ -35,7 +59,7 @@ public class ConcreteSquareMatrix extends AbstractMatrix implements SquareMatrix
 				determinant = 1;
 
 				if (upperTriangular == null) {
-					calculateUpperTriangular();
+					calculateUpperAndLowerTriangular();
 				}
 
 				for (int row = 0; row < rows; row++) {
@@ -108,10 +132,18 @@ public class ConcreteSquareMatrix extends AbstractMatrix implements SquareMatrix
 		return eigenvalues;
 	}
 
+	/**
+	 * Checks the determinant to find out if the matrix has inverse.
+	 * @return true if the determinant is not equal to zero, false otherwise
+	 */
 	public boolean hasInverse() {
 		return det() != 0;
 	}
 
+	/**
+	 * Checks whether the matrix is symmetric.
+	 * @return true if the matrix is symmetric
+	 */
 	public boolean isSymmetric() {
 		for (int row = 0; row < rows; row++) {
 			for (int col = 0; col < columns; col++) {
@@ -127,33 +159,10 @@ public class ConcreteSquareMatrix extends AbstractMatrix implements SquareMatrix
 	}
 
 	/**
-	 * Calculates the upper triangular matrix via elimination
-	 * and keeps the correct steps taken in the lower triangular
-	 * matrix.
+	 * Calculates the upper triangular (and lower triangular if such exists i.e. no row exchanges)
+	 * matrix and finds the number of pivots
 	 */
-	@Override
-	public void calculateUpperTriangular() {
-		assert matrix.length > 0;
-
-		if (upperTriangular == null) {
-			upperTriangular = new double[rows][columns];
-			lowerTriangular = getIdentityMatrix(rows);
-		}
-
-		// Copy the original matrix
-		{
-			for (int row = 0; row < rows; row++) {
-				upperTriangular[row] = matrix[row].clone();
-			}
-		}
-
-		calculateUpperTriangularMatrix();
-	}
-	/**
-	 * Helper method which does the actual calculations for the
-	 * calculateUpperTriangular() method
-	 */
-	private void calculateUpperTriangularMatrix() {
+	private void calculateUpperAndLowerTriangularMatrices() {
 		for (int column = 0; column < columns; column++) {
 			// Reorder the pivot rows if necessary on every level of elimination
 			reorderPivotRows(upperTriangular);
@@ -210,13 +219,41 @@ public class ConcreteSquareMatrix extends AbstractMatrix implements SquareMatrix
 	}
 
 	/**
+	 * Generates and prints the lower triangular if such can be computed (i.e. no row exchanges
+	 * had been performed during elimination towards the upper-triangular matrix)
+	 * @return the matrix L or null if it can't be computed
+	 */
+	public Matrix getLowerTriangular() {
+		if ( !hasLowerTriangular() ) {
+			return null;
+		}
+		else if (upperTriangular == null) {
+			calculateUpperAndLowerTriangular();
+		}
+
+		return generateMatrix(lowerTriangular, rows, columns);
+	}
+
+	/**
+	 * Computes and returns the upper-triangular matrix after elimination.
+	 * @return the matrix U
+	 */
+	public Matrix getUpperTriangular() {
+		if (upperTriangular == null) {
+			calculateUpperAndLowerTriangular();
+		}
+
+		return generateMatrix(upperTriangular, rows, columns);
+	}
+
+	/**
 	 * A method to check whether a lower triangular matrix can be computed
 	 * for the upper triangular matrix.
 	 * @return true if no row exchanges has been done while computing the upper triangular matrix
 	 */
 	public boolean hasLowerTriangular() {
 		if (upperTriangular == null) {
-			calculateUpperTriangular();
+			calculateUpperAndLowerTriangular();
 		}
 
 		if (rowExchangesPerformed != 0 || lowerTriangular == null) {
@@ -227,54 +264,11 @@ public class ConcreteSquareMatrix extends AbstractMatrix implements SquareMatrix
 	}
 
 	/**
-	 * Prints the lower triangular matrix if it could be computed
+	 * Returns a two-dimensional array filled with ones on the main diagonal and with
+	 * zeros everywhere else (the identity matrix).
+	 * @param size the size of the matrix
+	 * @return the identity matrix as a two-dimensional array
 	 */
-	public void printLowerTriangular() {
-		if ( hasLowerTriangular() ) {
-			printMatrix(lowerTriangular);
-		}
-		else {
-			System.out.println("The lower triangular matrix could not be computed due to row exchanges needed while computing the upper triangular matrix.");
-		}
-	}
-
-	// TODO: Make a general method in the abstract class to create and return given matrix
-	// TODO: Also add the necessary checks as there is a NullPtrException if lower triangular cannot be computed
-	public Matrix getLowerTriangular() {
-		assert hasLowerTriangular();
-
-		double [] elements = new double[rows * rows];
-		int elementIndex = 0;
-
-		for (int row = 0; row < rows; row++) {
-			for (int col = 0; col < columns; col++) {
-				elements[elementIndex++] = lowerTriangular[row][col];
-			}
-		}
-
-		Matrix L = MatrixFactory.createSquareMatrix(rows);
-		L.populateMatrix(elements);
-
-		return L;
-	}
-	public Matrix getUpperTriangular() {
-		assert upperTriangular != null;
-
-		double [] elements = new double[rows * rows];
-		int elementIndex = 0;
-
-		for (int row = 0; row < rows; row++) {
-			for (int col = 0; col < columns; col++) {
-				elements[elementIndex++] = upperTriangular[row][col];
-			}
-		}
-
-		Matrix U = MatrixFactory.createSquareMatrix(rows);
-		U.populateMatrix(elements);
-
-		return U;
-	}
-
 	private double [][] getIdentityMatrix(int size) {
 		double [][] matrix = new double[size][size];
 

@@ -18,10 +18,12 @@ abstract class AbstractMatrix implements Matrix {
 	private double [][] reducedRowEchelon;
 	int rowExchangesPerformed = 0;
 
+	/**
+	 * The three possible types of matrices.
+	 */
 	enum Type {
 		SQUARE, TALL, WIDE
 	}
-
 	Type type;
 
 	AbstractMatrix(int rows, int cols, boolean populateRandomly) {
@@ -40,6 +42,13 @@ abstract class AbstractMatrix implements Matrix {
 		}
 	}
 
+	/**
+	 * Checks whether two matrices are equal. In order to be considered equal, the matrices should be
+	 * of the same size (row and column numbers must match) and every element must be equal to the
+	 * element at the corresponding position of the other matrix.
+	 * @param obj to be compared to the matrix
+	 * @return true if the two matrices are completely identical
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if ( this == obj ) {
@@ -82,7 +91,7 @@ abstract class AbstractMatrix implements Matrix {
 		for (int row = 0; row < rows; row++) {
 			for (int col = 0; col < columns; col++) {
 
-				// This checks if the number is a whole number. If so -> print it without the decimal place
+				// Check if the number is a whole number. If so -> print it without the decimal place
 				if ( matrix[row][col] == Math.floor(matrix[row][col]) ) {
 					m.append( (int) matrix[row][col] );
 				} else {
@@ -95,7 +104,6 @@ abstract class AbstractMatrix implements Matrix {
 
 		return m.toString();
 	}
-
 
 
 	/* ======== INTERFACE METHODS ======== */
@@ -131,7 +139,6 @@ abstract class AbstractMatrix implements Matrix {
 					}
 				}
 			}
-
 		}
 	}
 
@@ -183,18 +190,55 @@ abstract class AbstractMatrix implements Matrix {
 	}
 
 	/**
-	 * Adds two matrices
+	 * Checks whether the passed matrix is of the same size (equal number of rows and columns)
 	 * @param a matrix
+	 * @return true if the matrix passed as parameter is of the same size
+	 */
+	public boolean isOfSameSize(Matrix a) {
+		assert a != null;
+
+		return ( rows == a.getRows()
+				&& columns == a.getColumns());
+	}
+
+	/**
+	 * Checks whether two matrices can be multiplied (i.e. the number of columns
+	 * of the first matrix is equal to the number of rows of the second)
+	 * @param a matrix
+	 * @return true if the number of columns matches the number of rows of the passed matrix
+	 */
+	public boolean canBeMultiplied(Matrix a) {
+		assert a != null;
+
+		return columns == a.getRows();
+	}
+
+	/**
+	 * Adds two matrices
+	 * @param a matrix to be added
 	 * @return the matrix produced from the addition
-	 * @throws NullPointerException if a or b are null
-	 * @throws IllegalArgumentException if the two matrices are not of the same size
+	 * @throws IllegalArgumentException if the matrix passed is not of the same size
 	 */
 	public Matrix add(Matrix a) {
-		if ( !(areSameSize(this, a)) ) {
-			throw new IllegalArgumentException("The matrices passed as parameters are not of the same size.");
+		if ( !(isOfSameSize(a)) ) {
+			throw new IllegalArgumentException("The matrix must be of the same size");
 		}
 
 		return MatrixOperations.ADD.apply(this, a);
+	}
+
+	/**
+	 * Subtracts two matrices
+	 * @param a matrix to be subtracted
+	 * @return the matrix produced from the addition
+	 * @throws IllegalArgumentException if the matrix passed is not of the same size
+	 */
+	public Matrix subtract(Matrix a) {
+		if ( !(isOfSameSize(a)) ) {
+			throw new IllegalArgumentException("The matrix must be of the same size");
+		}
+
+		return MatrixOperations.SUBTRACT.apply(this, a);
 	}
 
 	/**
@@ -204,7 +248,7 @@ abstract class AbstractMatrix implements Matrix {
 	 * @throws IllegalArgumentException if the matrices could not be legally multiplied
 	 */
 	public Matrix multiply(Matrix a) {
-		if ( !(canBeMultiplied(this, a)) ) {
+		if ( !(canBeMultiplied(a)) ) {
 			throw new IllegalArgumentException("The matrices cannot be multiplied.");
 		}
 
@@ -216,7 +260,7 @@ abstract class AbstractMatrix implements Matrix {
 	 */
 	public void printUpperTriangular() {
 		if (upperTriangular == null) {
-			calculateUpperTriangular();
+			calculateUpperAndLowerTriangular();
 		}
 
 		printMatrix(upperTriangular);
@@ -236,7 +280,7 @@ abstract class AbstractMatrix implements Matrix {
 	/**
 	 * Calculates the upper triangular matrix via elimination
 	 */
-	public void calculateUpperTriangular() {
+	public void calculateUpperAndLowerTriangular() {
 		assert matrix.length > 0;
 
 		if (upperTriangular == null) {
@@ -261,7 +305,7 @@ abstract class AbstractMatrix implements Matrix {
 		assert matrix.length > 0;
 
 		if (upperTriangular == null) {
-			calculateUpperTriangular();
+			calculateUpperAndLowerTriangular();
 		}
 
 		reducedRowEchelon = new double[rows][columns];
@@ -275,7 +319,6 @@ abstract class AbstractMatrix implements Matrix {
 
 		calculateReducedRowEchelonMatrix();
 	}
-
 
 
 	/* =========== Package-private methods =========== */
@@ -396,9 +439,9 @@ abstract class AbstractMatrix implements Matrix {
 	 * Prints any matrix in the format in which the regular matrix is being printed.
 	 * Refer to the toString() method.
 	 *
-	 * @param m: the matrix which is to be printed
+	 * @param m: a matrix in a two-dimensional array form which is to be printed
 	 */
-	void printMatrix(double [][] m) {
+	private void printMatrix(double [][] m) {
 		assert m != null && m.length > 0;
 
 		for (int row = 0; row < rows; row++) {
@@ -415,41 +458,31 @@ abstract class AbstractMatrix implements Matrix {
 		}
 	}
 
-
-
-
-	/* ======== STATIC METHODS ======== */
 	/**
-	 * Checks whether two matrices are of the same size (equal number of rows and columns)
-	 * @param a matrix
-	 * @param b matrix
-	 * @return true if the two matrices passed as a parameters are of the same size
+	 * Creates and returns a Matrix object of a two-dimensional array.
+	 * @param elements two-dimensional array with the elements with which to populate the newly created matrix
+	 * @param rows number of rows of the new matrix
+	 * @param columns number of columns of the new matrix
+	 * @return the newly created matrix
 	 */
-	static boolean areSameSize(Matrix a, Matrix b) {
-		assert a != null;
-		assert b != null;
+	Matrix generateMatrix(double [][] elements, int rows, int columns) {
+		Matrix newMatrix = MatrixFactory.createMatrix(rows, columns);
+		double [] newMatrixElements = new double[rows * columns];
+		int index = 0;
 
-		return ( a.getRows() == b.getRows()
-				&& a.getColumns() == b.getColumns());
+		for (int row = 0; row < rows; row++) {
+			for (int col = 0; col < columns; col++) {
+				newMatrixElements[index++] = elements[row][col];
+			}
+		}
+
+		newMatrix.populateMatrix(newMatrixElements);
+		return newMatrix;
 	}
-
-	/**
-	 * Checks whether two matrices can be multiplied (i.e. the number of columns
-	 * of the first matrix is equal to the number of rows of the second)
-	 * @param a matrix
-	 * @param b matrix
-	 * @return true if the number of columns of the first matrix equals the number of rows of the second one
-	 */
-	static boolean canBeMultiplied(Matrix a, Matrix b) {
-		assert a != null;
-		assert b != null;
-
-		return a.getColumns() == b.getRows();
-	}
-
 
 
 	/* ======== GETTERS ======== */
+	// TODO: This could be used if a matrix operation for finding some row/col of vector/matrix multiplication
 	public double getRowProduct(int row) {
 		assert row >= 0 && row < rows;
 
@@ -486,7 +519,7 @@ abstract class AbstractMatrix implements Matrix {
 
 	public int getRank() {
 		if (pivots == -1) {
-			calculateUpperTriangular();
+			calculateUpperAndLowerTriangular();
 		}
 
 		return pivots;
@@ -513,7 +546,7 @@ abstract class AbstractMatrix implements Matrix {
 
 		return rowElements;
 	}
-	ArrayList<Double> getColumnElements(double [][] matrix, int column) {
+	private ArrayList<Double> getColumnElements(double [][] matrix, int column) {
 		assert matrix != null && matrix.length > 0;
 		assert column >= 0 && column < columns;
 
@@ -530,7 +563,7 @@ abstract class AbstractMatrix implements Matrix {
 	/* ======== HELPER METHODS ======== */
 	/**
 	 * Helper method which does the actual calculations for the
-	 * calculateUpperTriangular() method
+	 * calculateUpperAndLowerTriangular() method
 	 */
 	private void calculateUpperTriangularMatrix() {
 
@@ -597,8 +630,6 @@ abstract class AbstractMatrix implements Matrix {
 				// Make all elements above the pivot element of the current row zeros
 				for ( int i = row - 1; i >= 0; i-- ) {
 					if ( reducedRowEchelon[row][pivotElementColNumber] != 0 ) {
-						ArrayList<Double> currentRow = getRowElements(reducedRowEchelon, i);
-						ArrayList<Double> pivotRow = getRowElements(reducedRowEchelon, row);
 						double multiplierPivotRow = reducedRowEchelon[i][pivotElementColNumber] / reducedRowEchelon[row][pivotElementColNumber];
 
 						// Do the row elimination from the pivot element onwards, as the previous elements of the pivot row are zeros
@@ -612,7 +643,6 @@ abstract class AbstractMatrix implements Matrix {
 						// Skip this row as the element is already zero
 					}
 				}
-
 			}
 			else {
 				// null row
@@ -642,8 +672,8 @@ abstract class AbstractMatrix implements Matrix {
 	}
 
 	/**
-	 *
-	 * @param m: the matrix to be manipulated
+	 * Swap two rows of a matrix (passed as a two-dimensional array)
+	 * @param m: the two-dimensional array matrix
 	 * @param row1, row2: the rows to be swapped
 	 */
 	private void swapTwoRows(double [][] m, int row1, int row2) {
