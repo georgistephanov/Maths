@@ -15,7 +15,7 @@ public class MatrixFactory {
 		}
 
 		if (rows == cols) {
-			return new SquareMatrix(rows);
+			return new ConcreteSquareMatrix(rows);
 		} else if ( rows > cols) {
 			return new TallMatrix(rows, cols);
 		} else {
@@ -29,12 +29,12 @@ public class MatrixFactory {
 	 * @return the newly created square matrix
 	 * @throws IllegalArgumentException if the size is less than 1
 	 */
-	public static SquareMatrix createSquareMatrix(int size) {
+	public static ConcreteSquareMatrix createSquareMatrix(int size) {
 		if (size < 1) {
 			throw new IllegalArgumentException("Illegal size of a matrix");
 		}
 
-		return new SquareMatrix(size);
+		return new ConcreteSquareMatrix(size);
 	}
 
 	/**

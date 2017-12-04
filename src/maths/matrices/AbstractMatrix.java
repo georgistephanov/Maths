@@ -16,7 +16,7 @@ abstract class AbstractMatrix implements Matrix {
 	double [][] matrix;
 	double [][] upperTriangular;
 	private double [][] reducedRowEchelon;
-	boolean rowExchangesPerformed = false;
+	int rowExchangesPerformed = 0;
 
 	enum Type {
 		SQUARE, TALL, WIDE
@@ -364,7 +364,7 @@ abstract class AbstractMatrix implements Matrix {
 			}
 
 			if ( row != longestRow ) {
-				rowExchangesPerformed = true;
+				rowExchangesPerformed++;
 
 				swapTwoRows(m, row, longestRow);
 

@@ -1,6 +1,6 @@
 package maths.matrices;
 
-public class IdentityMatrix extends SquareMatrix {
+public class IdentityMatrix extends ConcreteSquareMatrix {
 	IdentityMatrix(int size) {
 		super(size);
 		populate();

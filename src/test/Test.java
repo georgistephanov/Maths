@@ -9,7 +9,7 @@ public class Test {
 		double y = 2;
 		//testBasicOperations(BasicOperation.class, x, y);
 
-		Matrix a = MatrixFactory.createMatrix(4, 5);
+		Matrix a = MatrixFactory.createSquareMatrix(3);
 
 		double elem[] = {
 				1, 2, 3,
@@ -39,11 +39,10 @@ public class Test {
 				2, 4, 7
 		};
 
-		a.populateMatrix(elem1);
-		a.printUpperTriangular();
-		System.out.println();
+		a.populateMatrix(elem);
+		System.out.println(((SquareMatrix) a).eig()[0]);
 
-		SquareMatrix symm = (SquareMatrix) MatrixFactory.createSquareMatrix(4);
+		ConcreteSquareMatrix symm = (ConcreteSquareMatrix) MatrixFactory.createSquareMatrix(4);
 		double [] symmetric = {
 				1, 1, 1, 1,
 				1, 2, 3, 4,
