@@ -40,7 +40,7 @@ public class Test {
 		};
 
 		a.populateMatrix(elem);
-		System.out.println(((SquareMatrix) a).eig()[0]);
+		System.out.println(((SquareMatrix) a).eig()[1]);
 
 		ConcreteSquareMatrix symm = (ConcreteSquareMatrix) MatrixFactory.createSquareMatrix(4);
 		double [] symmetric = {
@@ -52,6 +52,8 @@ public class Test {
 
 		symm.populateMatrix(symmetric);
 		symm.printUpperTriangular();
+		System.out.println(symm.hasInverse());
+
 		System.out.println("\nHas lower triangular? " + symm.hasLowerTriangular());
 		symm.printLowerTriangular();
 

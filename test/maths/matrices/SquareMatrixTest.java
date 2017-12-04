@@ -30,20 +30,32 @@ public class SquareMatrixTest {
 	@Test
 	public void det() throws Exception {
 		assertTrue(a.det() == 1);
-		//assertTrue(b.det() == -5);
+		assertTrue(b.det() == -5);
 	}
 
 	@Test
 	public void eig() throws Exception {
+		ConcreteSquareMatrix c = MatrixFactory.createSquareMatrix(2);
+		c.populateMatrix(new double[] {1, 2, 2, 4});
 
+		assertTrue(c.eig()[0] == 0);
+		assertTrue(c.eig()[1] == 5);
 	}
 
 	@Test
 	public void hasInverse() throws Exception {
+		ConcreteSquareMatrix c = MatrixFactory.createSquareMatrix(2);
+		c.populateMatrix(new double[] {1, 2, 2, 4});
+
+		assertTrue(a.hasInverse());
+		assertTrue(b.hasInverse());
+		assertFalse(c.hasInverse());
 	}
 
 	@Test
 	public void isSymmetric() throws Exception {
+		assertTrue(a.isSymmetric());
+		assertFalse(b.isSymmetric());
 	}
 
 	@Test
